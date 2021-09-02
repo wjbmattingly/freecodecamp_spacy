@@ -210,6 +210,11 @@
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-install-spacy">
+   How to Install spaCy
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#containers">
    Containers
   </a>
@@ -232,6 +237,10 @@
 <p>NLP is used in every sector of industry, from academics who leverage it to aid in research to financial analysts who try and predict the stock market. Lawyers use NLP to help analyze thousands of legal documents in seconds to target their research and medical doctors use it to parse patient charts. NLP has been around for decades, but with the increased promise of deep learning, a subfield of machine learning, that NLP rapidly expanded. This is because, as we shall learn all too well throughout this book, language is inherently ambiguous. By this, I mean that language does not always make perfect sense. In some cases, it is entirely illogical. The double-negative in English is a good example of this. In some contexts, it can be an emphatic positive, as in, “I cannot stress this enough, I do not like pasta.” This is, of course a lie. I love pasta, but you get my point. In other cases, the double negative can be an emphatic negative, as in, “I ain’t not doing that!”</p>
 <p>As humans, especially native speakers of a language, we can parse these complex illogical statements with ease, especially with enough context. For computers, this is not always easy.</p>
 <p>Because NLP is such a complex problem for computers, it requires a complex solution. The answer has been found in artificial neural networks, or ANNs or neural nets for short. These are the primary areas of research for deep learning practitioners. As the field of deep learning (and machine learning in general) expand and advance, so too does NLP. New methods for training, such as transformer models, push the field further.</p>
+</div>
+<div class="section" id="how-to-install-spacy">
+<h1>How to Install spaCy<a class="headerlink" href="#how-to-install-spacy" title="Permalink to this headline">¶</a></h1>
+<p>In order to install spaCy, I recommend visiting their website, here: https://spacy.io/usage . They have a nice user-friendly interface. Input your device settings, e.g. Mac or Windows or Linux, and your language, e.g. English, French, or German. The web-app will automatically populate the commands that you need to execute to get started. Since this is a JupyterBook, we can install these with a “!” before in a cell to indicate that we want to run a terminal command. I will be installing spaCy and thee small English model, en_core_web_sm.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install spacy
@@ -246,6 +255,7 @@
 </div>
 </div>
 </div>
+<p>Now that we’ve installed spaCy let’s import it to make sure we installed it correctly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
@@ -253,6 +263,7 @@
 </div>
 </div>
 </div>
+<p>Great! Now, let’s make sure we downloaded the model successfully with the command below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
@@ -260,9 +271,11 @@
 </div>
 </div>
 </div>
+<p>Excellent! spaCy is now installed correctly and we have successfully downloaded the small English model. We will pick up here with the code in the next notebook. For now, I want to focus on big-picture items, specifically spaCy “containers”.</p>
 </div>
 <div class="section" id="containers">
 <h1>Containers<a class="headerlink" href="#containers" title="Permalink to this headline">¶</a></h1>
+<p>Containers are spaCy objects that contain a large quantity of data about a text. When we analyze texts with the spaCy framework, we create different container objects to do that. Here is a full list of all spaCy containers. We will be focusing on three (emboldened): Doc, Span, and Token.</p>
 <ul class="simple">
 <li><p><b>Doc</b></p></li>
 <li><p>DocBin</p></li>
@@ -273,9 +286,13 @@
 <li><p>SpanGroup</p></li>
 <li><p><b>Token</b></p></li>
 </ul>
+<p>I created the image below to show how I visualize spaCy containers in my mind. At the top, we have a Doc container. This is the basis for all spaCy. It is the main object that we create. Within the Doc container are many different attributes and subcontainers. One attribute is the Doc.sents, which contains all the sentences in the Doc container. The doc container (and each sentence generator) is made up of a set of token containers. These are things like words, punctuation, etc.</p>
+<p>Span containers are kind of like token, in that they are a piece of a Doc container. Spans have one thing that makes them unique. They can cross multiple tokens.</p>
+<p>We can give spans a bit more specificity by classifying them into different groups. These are known as SpanGroup containers.</p>
 <p align="center">
   <img height="300" src="images/spacy_containers.png">
-</p></div>
+</p><p>If you do not fully understand this dynamic, do not worry. You will get a much better sense of this pyramid as we move forward throughout this book. For now, I recommend keeping this image handy so you can refer back to it as we progress through Part 1 of this book in which we explore the basics of spaCy. In the next chapter, we will start applying these concepts in code by creating a doc object and learning about the different attributes containers have as well as how to find the linguistic annotations.</p>
+</div>
 
     <script type="text/x-thebe-config">
     {
