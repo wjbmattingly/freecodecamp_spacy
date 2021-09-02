@@ -1,0 +1,17 @@
+# Book settings
+title: Introduction to spaCy 3
+author: William Mattingly
+logo: 'images/freecodecamp.jiff'
+execute:
+  execute_notebooks: 'off'
+parse:
+  myst_extended_syntax: true
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/wjbmattingly/freecodecamp_spacy  # Online location of your book
+  branch: main  # Which branch of the repository should be used when creating links (optional)
+html:
+  use_edit_page_button: true
+  use_issues_button: true
+  use_repository_button: true
+  
