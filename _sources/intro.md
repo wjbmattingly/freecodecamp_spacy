@@ -12,7 +12,7 @@ Mattingly, William. <i>Introduction to spaCy 3</i>, 2021 (1st ed.). <a href="spa
 <p align="center">
     
 ```{image} ./images/freecodecampfull.png
-:alt: dsl
+:alt: fcc
 :target: https://www.freecodecamp.org/
 :class: bg-primary
 :width: 200px
