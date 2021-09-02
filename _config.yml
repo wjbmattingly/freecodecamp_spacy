@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Book settings
 title: Introduction to spaCy 3
 author: William Mattingly
@@ -33,6 +32,3 @@ html:
   use_edit_page_button: true
   use_issues_button: true
   use_repository_button: true
-  
->>>>>>> f018646786fd84a423b2c89cceaee2ad149e90f4
-  
