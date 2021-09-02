@@ -38,5 +38,4 @@ Mattingly, William. <i>Introduction to spaCy 3</i>, 2021 (1st ed.). <a href="spa
 :width: 200px
 :align: center
 ```
-
 </p>
