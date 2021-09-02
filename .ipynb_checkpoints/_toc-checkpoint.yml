@@ -1,7 +1,7 @@
 format: jb-book
 root: intro
 parts:
-- caption: Introduction to spaCy
+- caption: The Building Blocks of spaCy 3
   numbered: true
   chapters:
   - file: 01_01_install_and_containers
