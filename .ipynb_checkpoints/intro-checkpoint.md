@@ -10,6 +10,7 @@
 ### <p align="center">How to Cite</p>
 Mattingly, William. <i>Introduction to spaCy 3</i>, 2021 (1st ed.). <a href="spacy.pythonhumanities.com" target="_blank">spacy.pythonhumanities.com</a>.
 <p align="center">
+    
 ```{image} ./images/freecodecampfull.png
 :alt: dsl
 :target: https://www.freecodecamp.org/
@@ -38,4 +39,5 @@ Mattingly, William. <i>Introduction to spaCy 3</i>, 2021 (1st ed.). <a href="spa
 :width: 200px
 :align: center
 ```
+    
 </p>
