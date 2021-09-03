@@ -5,8 +5,8 @@ parts:
   numbered: true
   chapters:
   - file: 01_install_and_containers
-    title: How to Install spaCy and Container Objects
+    title: The Basics of spaCy
   - file: 02_linguistic_annotations
     title: spaCy Linguistic Annotations
   - file: 03_pipelines
-    title: spaCy Pipelines, Components and Factories
+    title: spaCy Pipelines
