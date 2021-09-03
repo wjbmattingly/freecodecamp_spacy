@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3. Standard Pipes (Components and Factories) Available from spaCy &#8212; Introduction to spaCy 3</title>
+    <title>3. spaCy’s Pipelines &#8212; Introduction to spaCy 3</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -106,7 +106,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   3. Standard Pipes (Components and Factories) Available from spaCy
+   3. spaCy Pipelines, Components and Factories
   </a>
  </li>
 </ul>
@@ -215,36 +215,36 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   3. Standard Pipes (Components and Factories) Available from spaCy
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#standard-pipes-components-and-factories-available-from-spacy">
+   3.1. Standard Pipes (Components and Factories) Available from spaCy
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#attribute-rulers">
-     3.1. Attribute Rulers
+     3.1.1. Attribute Rulers
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#matchers">
-     3.2. Matchers
+     3.1.2. Matchers
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#word-vectors">
-   4. Word Vectors
+   3.2. Word Vectors
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#doc-similarity">
-   5. Doc Similarity
+   3.3. Doc Similarity
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#word-similarity">
-   6. Word Similarity
+   3.4. Word Similarity
   </a>
  </li>
 </ul>
@@ -258,7 +258,9 @@
         
               <div>
                 
-  <div class="cell docutils container">
+  <div class="section" id="spacy-s-pipelines">
+<h1><span class="section-number">3. </span>spaCy’s Pipelines<a class="headerlink" href="#spacy-s-pipelines" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
 <span class="o">!</span>python -m spacy download en_core_web_md
@@ -312,9 +314,9 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="standard-pipes-components-and-factories-available-from-spacy">
-<h1><span class="section-number">3. </span>Standard Pipes (Components and Factories) Available from spaCy<a class="headerlink" href="#standard-pipes-components-and-factories-available-from-spacy" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">3.1. </span>Standard Pipes (Components and Factories) Available from spaCy<a class="headerlink" href="#standard-pipes-components-and-factories-available-from-spacy" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="attribute-rulers">
-<h2><span class="section-number">3.1. </span>Attribute Rulers<a class="headerlink" href="#attribute-rulers" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">3.1.1. </span>Attribute Rulers<a class="headerlink" href="#attribute-rulers" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Dependency Parser</p></li>
 <li><p>EntityLinker</p></li>
@@ -334,7 +336,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </ul>
 </div>
 <div class="section" id="matchers">
-<h2><span class="section-number">3.2. </span>Matchers<a class="headerlink" href="#matchers" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">3.1.2. </span>Matchers<a class="headerlink" href="#matchers" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>DependencyMatcher</p></li>
 <li><p>Matcher</p></li>
@@ -343,7 +345,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="word-vectors">
-<h1><span class="section-number">4. </span>Word Vectors<a class="headerlink" href="#word-vectors" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">3.2. </span>Word Vectors<a class="headerlink" href="#word-vectors" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence1</span><span class="p">:</span>
@@ -354,7 +356,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="doc-similarity">
-<h1><span class="section-number">5. </span>Doc Similarity<a class="headerlink" href="#doc-similarity" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">3.3. </span>Doc Similarity<a class="headerlink" href="#doc-similarity" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_md&quot;</span><span class="p">)</span>  <span class="c1"># make sure to use larger package!</span>
@@ -383,7 +385,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="word-similarity">
-<h1><span class="section-number">6. </span>Word Similarity<a class="headerlink" href="#word-similarity" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">3.4. </span>Word Similarity<a class="headerlink" href="#word-similarity" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Similarity of tokens and spans</span>
@@ -404,6 +406,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 
 <span class="ne">NameError</span>: name &#39;doc1&#39; is not defined
 </pre></div>
+</div>
 </div>
 </div>
 </div>
