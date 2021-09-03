@@ -4,9 +4,9 @@ parts:
 - caption: The Building Blocks of spaCy 3
   numbered: true
   chapters:
-  - file: 01_01_install_and_containers
+  - file: 01_install_and_containers
     title: How to Install spaCy and Container Objects
-  - file: 01_02_linguistic_annotations
+  - file: 02_linguistic_annotations
     title: spaCy Linguistic Annotations
   - file: 03_pipelines
     title: spaCy Pipelines, Components and Factories
