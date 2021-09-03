@@ -577,6 +577,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 </div>
+<p>Let’s move forward with just one of these sentences. Let’s try and grab index 0 in this attribute.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence1</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -596,6 +597,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 </div>
+<p>Uh oh! We got an error. That is because the sents attribute is a generator. In python, we can usually iterate over generators by converting them into a list. So, let’s do that.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -609,9 +611,24 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 </div>
+<p>Now we have the first sentence. Now that we have a smaller text, let’s explore spaCy’s other building block, the token.</p>
 </div>
 <div class="section" id="token-attributes">
 <h2><span class="section-number">2.4. </span>Token Attributes<a class="headerlink" href="#token-attributes" title="Permalink to this headline">¶</a></h2>
+<p>The token object contains a lot of different attributes that are VITAL do performing NLP in spaCy. We will be working with a few of them, such as:</p>
+<ul class="simple">
+<li><p>.text</p></li>
+<li><p>.head</p></li>
+<li><p>.left_edge</p></li>
+<li><p>.right_edge</p></li>
+<li><p>.ent_type_</p></li>
+<li><p>.iob_</p></li>
+<li><p>.lemma_</p></li>
+<li><p>.pos_</p></li>
+<li><p>.dep_</p></li>
+<li><p>.lang_</p></li>
+</ul>
+<p>I will briefly describe these here and show you how to grab each one and what they look like. We will be exploring each of these attributes more deeply in this chapter and future chapters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">token2</span> <span class="o">=</span> <span class="n">sentence1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
