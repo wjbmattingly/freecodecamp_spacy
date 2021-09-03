@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1. Standard Pipes (Components and Factories) Available from spaCy &#8212; Introduction to spaCy 3</title>
+    <title>9. Standard Pipes (Components and Factories) Available from spaCy &#8212; Introduction to spaCy 3</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="INTRODUCTION TO SPACY 3" href="intro.html" />
+    <link rel="prev" title="4. Creating a Doc Container" href="02_linguistic_annotations.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -69,8 +69,6 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
-      
-      <img src="_static/freecodecampfull.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Introduction to spaCy 3</h1>
@@ -96,9 +94,19 @@
  </span>
 </p>
 <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_install_and_containers.html">
+   1. What is spaCy?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_linguistic_annotations.html">
+   4. Creating a Doc Container
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   1. Standard Pipes (Components and Factories) Available from spaCy
+   9. Standard Pipes (Components and Factories) Available from spaCy
   </a>
  </li>
 </ul>
@@ -209,34 +217,34 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   1. Standard Pipes (Components and Factories) Available from spaCy
+   9. Standard Pipes (Components and Factories) Available from spaCy
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#attribute-rulers">
-     1.1. Attribute Rulers
+     9.1. Attribute Rulers
     </a>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#matchers">
-     1.2. Matchers
+     9.2. Matchers
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#word-vectors">
-   2. Word Vectors
+   10. Word Vectors
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#doc-similarity">
-   3. Doc Similarity
+   11. Doc Similarity
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#word-similarity">
-   4. Word Similarity
+   12. Word Similarity
   </a>
  </li>
 </ul>
@@ -304,9 +312,9 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="standard-pipes-components-and-factories-available-from-spacy">
-<h1><span class="section-number">1. </span>Standard Pipes (Components and Factories) Available from spaCy<a class="headerlink" href="#standard-pipes-components-and-factories-available-from-spacy" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">9. </span>Standard Pipes (Components and Factories) Available from spaCy<a class="headerlink" href="#standard-pipes-components-and-factories-available-from-spacy" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="attribute-rulers">
-<h2><span class="section-number">1.1. </span>Attribute Rulers<a class="headerlink" href="#attribute-rulers" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.1. </span>Attribute Rulers<a class="headerlink" href="#attribute-rulers" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Dependency Parser</p></li>
 <li><p>EntityLinker</p></li>
@@ -326,7 +334,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </ul>
 </div>
 <div class="section" id="matchers">
-<h2><span class="section-number">1.2. </span>Matchers<a class="headerlink" href="#matchers" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.2. </span>Matchers<a class="headerlink" href="#matchers" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>DependencyMatcher</p></li>
 <li><p>Matcher</p></li>
@@ -335,7 +343,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="word-vectors">
-<h1><span class="section-number">2. </span>Word Vectors<a class="headerlink" href="#word-vectors" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">10. </span>Word Vectors<a class="headerlink" href="#word-vectors" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence1</span><span class="p">:</span>
@@ -346,7 +354,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="doc-similarity">
-<h1><span class="section-number">3. </span>Doc Similarity<a class="headerlink" href="#doc-similarity" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">11. </span>Doc Similarity<a class="headerlink" href="#doc-similarity" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_md&quot;</span><span class="p">)</span>  <span class="c1"># make sure to use larger package!</span>
@@ -375,7 +383,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="word-similarity">
-<h1><span class="section-number">4. </span>Word Similarity<a class="headerlink" href="#word-similarity" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">12. </span>Word Similarity<a class="headerlink" href="#word-similarity" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Similarity of tokens and spans</span>
@@ -431,11 +439,11 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="intro.html" title="previous page">
+        <a class="left-prev" href="02_linguistic_annotations.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><p align="center">INTRODUCTION TO SPACY 3</p></p>
+                <p class="prevnext-title"><span class="section-number">4. </span>Creating a Doc Container</p>
             </div>
         </a>
     </div>
