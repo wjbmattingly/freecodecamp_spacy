@@ -628,7 +628,7 @@ Making up more than a third of global military spending, it is the foremost mili
 <li><p>.dep_</p></li>
 <li><p>.lang_</p></li>
 </ul>
-<p>I will briefly describe these here and show you how to grab each one and what they look like. We will be exploring each of these attributes more deeply in this chapter and future chapters.</p>
+<p>I will briefly describe these here and show you how to grab each one and what they look like. We will be exploring each of these attributes more deeply in this chapter and future chapters. To demonstrate each of these attributes, we will use one token, “States” which is part of a sequence of tokens that make up “The United States of America”</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">token2</span> <span class="o">=</span> <span class="n">sentence1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -673,6 +673,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 </div>
+<p>This tells to which word it is governed by, in this case, the primary verb, “is”, as it is part of the noun subject.</p>
 </div>
 <div class="section" id="left-edge">
 <h3><span class="section-number">2.4.3. </span>Left Edge<a class="headerlink" href="#left-edge" title="Permalink to this headline">¶</a></h3>
@@ -689,6 +690,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 </div>
+<p>If part of a sequence of tokens that are collectively meaningful, known as <strong>multi-word tokens</strong>, this will tell us where the multi-word token begins.</p>
 </div>
 <div class="section" id="right-edge">
 <h3><span class="section-number">2.4.4. </span>Right Edge<a class="headerlink" href="#right-edge" title="Permalink to this headline">¶</a></h3>
@@ -705,6 +707,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 </div>
+<p>This will tell us where the multi-word token ends.</p>
 </div>
 <div class="section" id="entity-type">
 <h3><span class="section-number">2.4.5. </span>Entity Type<a class="headerlink" href="#entity-type" title="Permalink to this headline">¶</a></h3>
@@ -721,6 +724,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 </div>
+<p>Note the absence of the _ at the end of the attribute. This will return an integer that corresponds to an entity type, where as _ will give you the string equivalent., as in below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">token2</span><span class="o">.</span><span class="n">ent_type_</span>
@@ -733,6 +737,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 </div>
+<p>We will learn all about types of entities in our chapter on named entity recognition, or NER. For now, simply understand that GPE is geopolitical entity and is correct.</p>
 </div>
 <div class="section" id="ent-iob">
 <h3><span class="section-number">2.4.6. </span>Ent IOB<a class="headerlink" href="#ent-iob" title="Permalink to this headline">¶</a></h3>
@@ -749,6 +754,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 </div>
+<p>IOB is a method of annotating a text. In this case, we see “I” because states is inside an entity, that is to say that it is part of the United States of America.</p>
 </div>
 <div class="section" id="lemma">
 <h3><span class="section-number">2.4.7. </span>Lemma<a class="headerlink" href="#lemma" title="Permalink to this headline">¶</a></h3>
