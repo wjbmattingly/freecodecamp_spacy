@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sentence Boundary Detection (SBD) &#8212; Introduction to spaCy 3</title>
+    <title>Creating a Doc Container &#8212; Introduction to spaCy 3</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -206,6 +206,11 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
+   Creating a Doc Container
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sentence-boundary-detection-sbd">
    Sentence Boundary Detection (SBD)
   </a>
  </li>
@@ -289,97 +294,6 @@
                 
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install spacy
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: spacy in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (3.1.1)
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: You are using pip version 21.1.2; however, version 21.2.4 is available.
-You should consider upgrading via the &#39;c:\users\wma22\appdata\local\programs\python\python39\python.exe -m pip install --upgrade pip&#39; command.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy&gt;=1.15.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (1.20.2)
-Requirement already satisfied: murmurhash&lt;1.1.0,&gt;=0.28.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (1.0.5)
-Requirement already satisfied: catalogue&lt;2.1.0,&gt;=2.0.4 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (2.0.4)
-Requirement already satisfied: tqdm&lt;5.0.0,&gt;=4.38.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (4.59.0)
-Requirement already satisfied: jinja2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (2.11.3)
-Requirement already satisfied: srsly&lt;3.0.0,&gt;=2.4.1 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (2.4.1)
-Requirement already satisfied: pydantic!=1.8,!=1.8.1,&lt;1.9.0,&gt;=1.7.4 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (1.7.4)
-Requirement already satisfied: preshed&lt;3.1.0,&gt;=3.0.2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (3.0.5)
-Requirement already satisfied: typer&lt;0.4.0,&gt;=0.3.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (0.3.2)
-Requirement already satisfied: cymem&lt;2.1.0,&gt;=2.0.2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (2.0.5)
-Requirement already satisfied: spacy-legacy&lt;3.1.0,&gt;=3.0.7 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (3.0.8)
-Requirement already satisfied: pathy&gt;=0.3.5 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (0.4.0)
-Requirement already satisfied: packaging&gt;=20.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (20.9)
-Requirement already satisfied: setuptools in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (54.1.1)
-Requirement already satisfied: wasabi&lt;1.1.0,&gt;=0.8.1 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (0.8.2)
-Requirement already satisfied: requests&lt;3.0.0,&gt;=2.13.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (2.25.1)
-Requirement already satisfied: blis&lt;0.8.0,&gt;=0.4.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (0.7.4)
-Requirement already satisfied: thinc&lt;8.1.0,&gt;=8.0.8 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy) (8.0.8)
-Requirement already satisfied: pyparsing&gt;=2.0.2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from packaging&gt;=20.0-&gt;spacy) (2.4.7)
-Requirement already satisfied: smart-open&lt;4.0.0,&gt;=2.2.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from pathy&gt;=0.3.5-&gt;spacy) (3.0.0)
-Requirement already satisfied: idna&lt;3,&gt;=2.5 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy) (2.10)
-Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy) (1.26.3)
-Requirement already satisfied: chardet&lt;5,&gt;=3.0.2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy) (4.0.0)
-Requirement already satisfied: certifi&gt;=2017.4.17 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy) (2020.12.5)
-Requirement already satisfied: click&lt;7.2.0,&gt;=7.1.1 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from typer&lt;0.4.0,&gt;=0.3.0-&gt;spacy) (7.1.2)
-Requirement already satisfied: MarkupSafe&gt;=0.23 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from jinja2-&gt;spacy) (1.1.1)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python -m spacy download en_core_web_sm
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting en-core-web-sm==3.1.0
-  Using cached https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.1.0/en_core_web_sm-3.1.0-py3-none-any.whl (13.6 MB)
-Requirement already satisfied: spacy&lt;3.2.0,&gt;=3.1.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from en-core-web-sm==3.1.0) (3.1.1)
-Requirement already satisfied: tqdm&lt;5.0.0,&gt;=4.38.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (4.59.0)
-Requirement already satisfied: catalogue&lt;2.1.0,&gt;=2.0.4 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (2.0.4)
-Requirement already satisfied: pydantic!=1.8,!=1.8.1,&lt;1.9.0,&gt;=1.7.4 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (1.7.4)
-Requirement already satisfied: packaging&gt;=20.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (20.9)
-Requirement already satisfied: spacy-legacy&lt;3.1.0,&gt;=3.0.7 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (3.0.8)
-Requirement already satisfied: setuptools in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (54.1.1)
-Requirement already satisfied: typer&lt;0.4.0,&gt;=0.3.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (0.3.2)
-Requirement already satisfied: murmurhash&lt;1.1.0,&gt;=0.28.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (1.0.5)
-Requirement already satisfied: thinc&lt;8.1.0,&gt;=8.0.8 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (8.0.8)
-Requirement already satisfied: cymem&lt;2.1.0,&gt;=2.0.2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (2.0.5)
-Requirement already satisfied: preshed&lt;3.1.0,&gt;=3.0.2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (3.0.5)
-Requirement already satisfied: pathy&gt;=0.3.5 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (0.4.0)
-Requirement already satisfied: jinja2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (2.11.3)
-Requirement already satisfied: wasabi&lt;1.1.0,&gt;=0.8.1 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (0.8.2)
-Requirement already satisfied: requests&lt;3.0.0,&gt;=2.13.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (2.25.1)
-Requirement already satisfied: blis&lt;0.8.0,&gt;=0.4.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (0.7.4)
-Requirement already satisfied: numpy&gt;=1.15.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (1.20.2)
-Requirement already satisfied: srsly&lt;3.0.0,&gt;=2.4.1 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (2.4.1)
-Requirement already satisfied: pyparsing&gt;=2.0.2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from packaging&gt;=20.0-&gt;spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (2.4.7)
-Requirement already satisfied: smart-open&lt;4.0.0,&gt;=2.2.0 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from pathy&gt;=0.3.5-&gt;spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (3.0.0)
-Requirement already satisfied: chardet&lt;5,&gt;=3.0.2 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (4.0.0)
-Requirement already satisfied: idna&lt;3,&gt;=2.5 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (2.10)
-Requirement already satisfied: certifi&gt;=2017.4.17 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (2020.12.5)
-Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from requests&lt;3.0.0,&gt;=2.13.0-&gt;spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (1.26.3)
-Requirement already satisfied: click&lt;7.2.0,&gt;=7.1.1 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from typer&lt;0.4.0,&gt;=0.3.0-&gt;spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (7.1.2)
-Requirement already satisfied: MarkupSafe&gt;=0.23 in c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages (from jinja2-&gt;spacy&lt;3.2.0,&gt;=3.1.0-&gt;en-core-web-sm==3.1.0) (1.1.1)
-[+] Download and installation successful
-You can now load the package via spacy.load(&#39;en_core_web_sm&#39;)
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2021-09-02 09:52:15.135962: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library cudart64_110.dll
-WARNING: You are using pip version 21.1.2; however, version 21.2.4 is available.
-You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs\Python\Python39\python.exe -m pip install --upgrade pip&#39; command.
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
 </pre></div>
 </div>
@@ -403,8 +317,7 @@ INFO:tensorflow:Enabling control flow v2
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
-<span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s2">&quot;data/wiki_us.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s2">&quot;data/wiki_us.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -430,6 +343,8 @@ The United States is a highly developed country, accounts for approximately a qu
 </div>
 </div>
 </div>
+<div class="section" id="creating-a-doc-container">
+<h1>Creating a Doc Container<a class="headerlink" href="#creating-a-doc-container" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
@@ -453,6 +368,20 @@ During the Cold War, the United States fought the Korean War and the Vietnam War
 The United States is a federal republic and a representative democracy with three separate branches of government, including a bicameral legislature. It is a founding member of the United Nations, World Bank, International Monetary Fund, Organization of American States, NATO, and other international organizations. It is a permanent member of the United Nations Security Council. Considered a melting pot of cultures and ethnicities, its population has been profoundly shaped by centuries of immigration. The country ranks high in international measures of economic freedom, quality of life, education, and human rights, and has low levels of perceived corruption. However, the country has received criticism concerning inequality related to race, wealth and income, the use of capital punishment, high incarceration rates, and lack of universal health care.
 
 The United States is a highly developed country, accounts for approximately a quarter of global GDP, and is the world&#39;s largest economy. By value, the United States is the world&#39;s largest importer and the second-largest exporter of goods. Although its population is only 4.2% of the world&#39;s total, it holds 29.4% of the total wealth in the world, the largest share held by any country. Making up more than a third of global military spending, it is the foremost military power in the world; and it is a leading political, cultural, and scientific force internationally.[23]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>652
+3525
 </pre></div>
 </div>
 </div>
@@ -557,6 +486,7 @@ or
 Word Split 7:
 USA),
 </pre></div>
+</div>
 </div>
 </div>
 </div>
