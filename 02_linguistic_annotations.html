@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. Creating a Doc Container &#8212; Introduction to spaCy 3</title>
+    <title>2. Getting Started with spaCy and its Linguistic Annotations &#8212; Introduction to spaCy 3</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="9. Standard Pipes (Components and Factories) Available from spaCy" href="03_pipelines.html" />
-    <link rel="prev" title="1. What is spaCy?" href="01_install_and_containers.html" />
+    <link rel="next" title="3. Standard Pipes (Components and Factories) Available from spaCy" href="03_pipelines.html" />
+    <link rel="prev" title="1. How to Install spaCy and Introduction to Containers" href="01_install_and_containers.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -97,17 +97,17 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="01_install_and_containers.html">
-   1. What is spaCy?
+   1. How to Install spaCy and Container Objects
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   4. Creating a Doc Container
+   2. spaCy Linguistic Annotations
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="03_pipelines.html">
-   9. Standard Pipes (Components and Factories) Available from spaCy
+   3. Standard Pipes (Components and Factories) Available from spaCy
   </a>
  </li>
 </ul>
@@ -216,81 +216,81 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   4. Creating a Doc Container
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-a-doc-container">
+   2.1. Creating a Doc Container
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#sentence-boundary-detection-sbd">
-   5. Sentence Boundary Detection (SBD)
+   2.2. Sentence Boundary Detection (SBD)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#token-attributes">
-   6. Token Attributes
+   2.3. Token Attributes
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#text">
-     6.1. Text
+     2.3.1. Text
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#head">
-     6.2. Head
+     2.3.2. Head
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#left-edge">
-     6.3. Left Edge
+     2.3.3. Left Edge
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#right-edge">
-     6.4. Right Edge
+     2.3.4. Right Edge
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#entity-type">
-     6.5. Entity Type
+     2.3.5. Entity Type
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#ent-iob">
-     6.6. Ent IOB
+     2.3.6. Ent IOB
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#lemma">
-     6.7. Lemma
+     2.3.7. Lemma
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#part-of-speech">
-     6.8. Part of Speech
+     2.3.8. Part of Speech
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#syntactic-dependency">
-     6.9. Syntactic Dependency
+     2.3.9. Syntactic Dependency
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#language">
-     6.10. Language
+     2.3.10. Language
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#part-of-speech-tagging-pos">
-   7. Part of Speech Tagging (POS)
+   2.4. Part of Speech Tagging (POS)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#named-entity-recognition">
-   8. Named Entity Recognition
+   2.5. Named Entity Recognition
   </a>
  </li>
 </ul>
@@ -304,7 +304,9 @@
         
               <div>
                 
-  <div class="cell docutils container">
+  <div class="section" id="getting-started-with-spacy-and-its-linguistic-annotations">
+<h1><span class="section-number">2. </span>Getting Started with spaCy and its Linguistic Annotations<a class="headerlink" href="#getting-started-with-spacy-and-its-linguistic-annotations" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
 </pre></div>
@@ -356,7 +358,7 @@ The United States is a highly developed country, accounts for approximately a qu
 </div>
 </div>
 <div class="section" id="creating-a-doc-container">
-<h1><span class="section-number">4. </span>Creating a Doc Container<a class="headerlink" href="#creating-a-doc-container" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">2.1. </span>Creating a Doc Container<a class="headerlink" href="#creating-a-doc-container" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
@@ -503,7 +505,7 @@ USA),
 </div>
 </div>
 <div class="section" id="sentence-boundary-detection-sbd">
-<h1><span class="section-number">5. </span>Sentence Boundary Detection (SBD)<a class="headerlink" href="#sentence-boundary-detection-sbd" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">2.2. </span>Sentence Boundary Detection (SBD)<a class="headerlink" href="#sentence-boundary-detection-sbd" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">:</span>
@@ -584,7 +586,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="token-attributes">
-<h1><span class="section-number">6. </span>Token Attributes<a class="headerlink" href="#token-attributes" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">2.3. </span>Token Attributes<a class="headerlink" href="#token-attributes" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">token2</span> <span class="o">=</span> <span class="n">sentence1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -599,7 +601,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="text">
-<h2><span class="section-number">6.1. </span>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.1. </span>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Verbatim</span> <span class="pre">text</span> <span class="pre">content.</span></code> -spaCy docs</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -615,7 +617,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="head">
-<h2><span class="section-number">6.2. </span>Head<a class="headerlink" href="#head" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.2. </span>Head<a class="headerlink" href="#head" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">syntactic</span> <span class="pre">parent,</span> <span class="pre">or</span> <span class="pre">“governor”,</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">token.</span></code> -spaCy docs</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -631,7 +633,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="left-edge">
-<h2><span class="section-number">6.3. </span>Left Edge<a class="headerlink" href="#left-edge" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.3. </span>Left Edge<a class="headerlink" href="#left-edge" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"> <span class="pre">The</span> <span class="pre">leftmost</span> <span class="pre">token</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">token’s</span> <span class="pre">syntactic</span> <span class="pre">descendants.</span></code> -spaCy docs</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -647,7 +649,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="right-edge">
-<h2><span class="section-number">6.4. </span>Right Edge<a class="headerlink" href="#right-edge" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.4. </span>Right Edge<a class="headerlink" href="#right-edge" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"> <span class="pre">The</span> <span class="pre">rightmost</span> <span class="pre">token</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">token’s</span> <span class="pre">syntactic</span> <span class="pre">descendants.</span></code> -spaCy docs</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -663,7 +665,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="entity-type">
-<h2><span class="section-number">6.5. </span>Entity Type<a class="headerlink" href="#entity-type" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.5. </span>Entity Type<a class="headerlink" href="#entity-type" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"> <span class="pre">Named</span> <span class="pre">entity</span> <span class="pre">type.</span></code> -spaCy docs</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -691,7 +693,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="ent-iob">
-<h2><span class="section-number">6.6. </span>Ent IOB<a class="headerlink" href="#ent-iob" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.6. </span>Ent IOB<a class="headerlink" href="#ent-iob" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">IOB</span> <span class="pre">code</span> <span class="pre">of</span> <span class="pre">named</span> <span class="pre">entity</span> <span class="pre">tag.</span> <span class="pre">“B”</span> <span class="pre">means</span> <span class="pre">the</span> <span class="pre">token</span> <span class="pre">begins</span> <span class="pre">an</span> <span class="pre">entity,</span> <span class="pre">“I”</span> <span class="pre">means</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">inside</span> <span class="pre">an</span> <span class="pre">entity,</span> <span class="pre">“O”</span> <span class="pre">means</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">outside</span> <span class="pre">an</span> <span class="pre">entity,</span> <span class="pre">and</span> <span class="pre">&quot;&quot;</span> <span class="pre">means</span> <span class="pre">no</span> <span class="pre">entity</span> <span class="pre">tag</span> <span class="pre">is</span> <span class="pre">set.</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -707,7 +709,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="lemma">
-<h2><span class="section-number">6.7. </span>Lemma<a class="headerlink" href="#lemma" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.7. </span>Lemma<a class="headerlink" href="#lemma" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Base</span> <span class="pre">form</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">token,</span> <span class="pre">with</span> <span class="pre">no</span> <span class="pre">inflectional</span> <span class="pre">suffixes.</span></code> -spaCy docs</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -735,7 +737,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="part-of-speech">
-<h2><span class="section-number">6.8. </span>Part of Speech<a class="headerlink" href="#part-of-speech" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.8. </span>Part of Speech<a class="headerlink" href="#part-of-speech" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Coarse-grained</span> <span class="pre">part-of-speech</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">Universal</span> <span class="pre">POS</span> <span class="pre">tag</span> <span class="pre">set.</span></code> -spaCy docs</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -751,7 +753,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="syntactic-dependency">
-<h2><span class="section-number">6.9. </span>Syntactic Dependency<a class="headerlink" href="#syntactic-dependency" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.9. </span>Syntactic Dependency<a class="headerlink" href="#syntactic-dependency" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Syntactic</span> <span class="pre">dependency</span> <span class="pre">relation.</span></code> -spaCy docs</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -767,7 +769,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="language">
-<h2><span class="section-number">6.10. </span>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h2>
+<h3><span class="section-number">2.3.10. </span>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Language</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">parent</span> <span class="pre">document’s</span> <span class="pre">vocabulary.</span></code> -spaCy docs</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -784,7 +786,7 @@ Making up more than a third of global military spending, it is the foremost mili
 </div>
 </div>
 <div class="section" id="part-of-speech-tagging-pos">
-<h1><span class="section-number">7. </span>Part of Speech Tagging (POS)<a class="headerlink" href="#part-of-speech-tagging-pos" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">2.4. </span>Part of Speech Tagging (POS)<a class="headerlink" href="#part-of-speech-tagging-pos" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence1</span><span class="p">:</span>
@@ -1186,7 +1188,7 @@ America PROPN pobj
 </div>
 </div>
 <div class="section" id="named-entity-recognition">
-<h1><span class="section-number">8. </span>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">2.5. </span>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
@@ -1677,6 +1679,7 @@ more than a third CARDINAL
  of global military spending, it is the foremost military power in the world; and it is a leading political, cultural, and scientific force internationally.[23]</div></span></div></div>
 </div>
 </div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -1712,7 +1715,7 @@ more than a third CARDINAL
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">1. </span>What is spaCy?</p>
+                <p class="prevnext-title"><span class="section-number">1. </span>How to Install spaCy and Introduction to Containers</p>
             </div>
         </a>
     </div>
@@ -1720,7 +1723,7 @@ more than a third CARDINAL
         <a class="right-next" href="03_pipelines.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">9. </span>Standard Pipes (Components and Factories) Available from spaCy</p>
+                <p class="prevnext-title"><span class="section-number">3. </span>Standard Pipes (Components and Factories) Available from spaCy</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
