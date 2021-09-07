@@ -8,5 +8,7 @@ parts:
     title: The Basics of spaCy
   - file: 02_linguistic_annotations
     title: spaCy Linguistic Annotations
-  - file: 03_pipelines
+  - file: 03_word_vectors
+    title: Word Vectors and spaCy
+  - file: 04_pipelines
     title: spaCy Pipelines
