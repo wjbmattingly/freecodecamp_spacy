@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3. spaCy’s Pipelines &#8212; Introduction to spaCy 3</title>
+    <title>4. spaCy’s Pipelines &#8212; Introduction to spaCy 3</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="2. Getting Started with spaCy and its Linguistic Annotations" href="02_linguistic_annotations.html" />
+    <link rel="prev" title="3. Word Vectors and spaCy" href="03_word_vectors.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -104,9 +104,14 @@
    2. spaCy Linguistic Annotations
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_word_vectors.html">
+   3. Word Vectors and spaCy
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   3. spaCy Pipelines
+   4. spaCy Pipelines
   </a>
  </li>
 </ul>
@@ -150,7 +155,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/03_pipelines.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/04_pipelines.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -170,10 +175,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F03_pipelines.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F04_pipelines.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/03_pipelines.ipynb"><button
+        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/04_pipelines.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -193,7 +198,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/03_pipelines.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/04_pipelines.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -217,51 +222,56 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#standard-pipes-components-and-factories-available-from-spacy">
-   3.1. Standard Pipes (Components and Factories) Available from spaCy
+   4.1. Standard Pipes (Components and Factories) Available from spaCy
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#attribute-rulers">
-     3.1.1. Attribute Rulers
+     4.1.1. Attribute Rulers
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#matchers">
-     3.1.2. Matchers
+     4.1.2. Matchers
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#word-vectors">
-   3.2. Word Vectors
+   4.2. Word Vectors
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#why-use-word-vectors">
-     3.2.1. Why use Word Vectors?
+     4.2.1. Why use Word Vectors?
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#what-do-word-vectors-look-like">
-     3.2.2. What do Word Vectors Look Like?
+     4.2.2. What do Word Vectors Look Like?
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id1">
-     3.2.3. Why use Word Vectors?
+     4.2.3. Why use Word Vectors?
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#doc-similarity">
-   3.3. Doc Similarity
+   4.3. Doc Similarity
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#word-similarity">
-   3.4. Word Similarity
+   4.4. Word Similarity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   4.5. Conclusion
   </a>
  </li>
 </ul>
@@ -276,7 +286,7 @@
               <div>
                 
   <div class="section" id="spacy-s-pipelines">
-<h1><span class="section-number">3. </span>spaCy’s Pipelines<a class="headerlink" href="#spacy-s-pipelines" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">4. </span>spaCy’s Pipelines<a class="headerlink" href="#spacy-s-pipelines" title="Permalink to this headline">¶</a></h1>
 <p>In this notebook, we will be learning about the various pipelines in spaCy. In a later notebook, we will cover how to add your own custom pipes. One of the subjects covered in this notebook is word vectors, or word embeddings. Because the English small model does not have these saved, we will be working with the next largest model, the English medium model, en_core_web_md. Let’s import spaCy and download the medium model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -332,10 +342,10 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="standard-pipes-components-and-factories-available-from-spacy">
-<h2><span class="section-number">3.1. </span>Standard Pipes (Components and Factories) Available from spaCy<a class="headerlink" href="#standard-pipes-components-and-factories-available-from-spacy" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.1. </span>Standard Pipes (Components and Factories) Available from spaCy<a class="headerlink" href="#standard-pipes-components-and-factories-available-from-spacy" title="Permalink to this headline">¶</a></h2>
 <p>SpaCy is much more than an NLP framework. It is also a way of designing and implementing complex pipelines. A pipeline is a sequence of pipes, or actors on data, that make alterations to the data or extract information from it. In some cases, later pipes require the output from earlier pipes. In other cases, a pipe can exist entirely on its own. A good example of this is the</p>
 <div class="section" id="attribute-rulers">
-<h3><span class="section-number">3.1.1. </span>Attribute Rulers<a class="headerlink" href="#attribute-rulers" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.1.1. </span>Attribute Rulers<a class="headerlink" href="#attribute-rulers" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Dependency Parser</p></li>
 <li><p>EntityLinker</p></li>
@@ -355,7 +365,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </ul>
 </div>
 <div class="section" id="matchers">
-<h3><span class="section-number">3.1.2. </span>Matchers<a class="headerlink" href="#matchers" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.1.2. </span>Matchers<a class="headerlink" href="#matchers" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>DependencyMatcher</p></li>
 <li><p>Matcher</p></li>
@@ -375,7 +385,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="word-vectors">
-<h2><span class="section-number">3.2. </span>Word Vectors<a class="headerlink" href="#word-vectors" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.2. </span>Word Vectors<a class="headerlink" href="#word-vectors" title="Permalink to this headline">¶</a></h2>
 <p>Word vectors, or word embeddings, are numerical representations of words in multidimensional space through matrices. The purpose of the word vector is to get a computer system to understand a word. Computers cannot understand text efficiently. They can, however, process numbers quickly and well. For this reason, it is important to convert a word into a number.</p>
 <p>Initial methods for creating word vectors in a pipeline take all words in a corpus and convert them into a single, unique number. These words are then stored in a dictionary that would look like this: {“the”: 1, “a”, 2} etc. This is known as a bag of words. This approach to representing words numerically, however, only allow a computer to understand words numerically to identify unique words. It does not, however, allow a computer to understand meaning.</p>
 <p>Imagine this scenario:</p>
@@ -387,7 +397,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 <p>As we can see, as humans both sentences are nearly identical. The only difference is the degree to which Tom appreciates eating chocolate. If we examine the numbers, however, these two sentences seem quite close, but their semantical meaning is impossible to know for certain. How similar is 2 to 6? The number 6 could represent “hates” as much as it could represent “likes”. This is where word vectors come in.</p>
 <p>Word vectors take these one dimensional bag of words and gives them multidimensional meaning by representing them in higher dimensional space, noted above. This is achieved through machine learning and can be easily achieved via Python libraries, such as Gensim, which we will explore more closely in the next notebook.</p>
 <div class="section" id="why-use-word-vectors">
-<h3><span class="section-number">3.2.1. </span>Why use Word Vectors?<a class="headerlink" href="#why-use-word-vectors" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.2.1. </span>Why use Word Vectors?<a class="headerlink" href="#why-use-word-vectors" title="Permalink to this headline">¶</a></h3>
 <p>The goal of word vectors is to achieve numerical understanding of language so that a computer can perform more complex tasks on that corpus. Let’s consider the example above. How do we get a computer to understand 2 and 6 are synonyms or mean something similar? One option you might be thinking is to simply give the computer a synonym dictionary. It can look up synonyms and then know what words mean. This approach, on the surface, makes perfect sense, but let’s explore that option and see why it cannot possibly work.</p>
 <p>For the example below, we will be using the Python library PyDictionary which allows us to look up definitions and synonyms of words.</p>
 <div class="cell docutils container">
@@ -454,7 +464,7 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 <p>This, as we can see, has some potential to work, but again it is not entirely reliable and to work with such a list would be computationally expensive. For both of these reasons, word vectors are prefered. The reason? Because they are formed by the computer on corpora for a specific task. Further, they are numerical in nature (not a dictionary of words), meaning the computer can process them more quickly.</p>
 </div>
 <div class="section" id="what-do-word-vectors-look-like">
-<h3><span class="section-number">3.2.2. </span>What do Word Vectors Look Like?<a class="headerlink" href="#what-do-word-vectors-look-like" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.2.2. </span>What do Word Vectors Look Like?<a class="headerlink" href="#what-do-word-vectors-look-like" title="Permalink to this headline">¶</a></h3>
 <p>Word vectors have a preset number of dimensions. These dimensions are honed via machine learned. Models take into account word frequency alongside words across a corpus and the appearance of other words in similar contexts. This allows for the the computer to determine the syntactical similarity of words numerically. It then needs to represent these relationships numerically. It does this through the vector, or a matrix of matrices. To represent these more concisely, models flatten a matrix to a float (decimal number). The number of dimensions represent the number of floats in the matrix.</p>
 <p>Let’s take a look at the first word in our sentence. Specifically, let’s look at its vector.</p>
 <div class="cell docutils container">
@@ -531,11 +541,12 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 <div class="section" id="id1">
-<h3><span class="section-number">3.2.3. </span>Why use Word Vectors?<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.2.3. </span>Why use Word Vectors?<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Once a word vector model is trained, we can do similarity matches very quickly and very reliably. Let’s explore some vectors from our medium sized model. Let’s specifically try and find the words most closely related to the word dog.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">your_word</span> <span class="o">=</span> <span class="s2">&quot;dog&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#https://stackoverflow.com/questions/54717449/mapping-word-vector-to-the-most-similar-closest-word-using-spacy</span>
+<span class="n">your_word</span> <span class="o">=</span> <span class="s2">&quot;dog&quot;</span>
 
 <span class="n">ms</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">vectors</span><span class="o">.</span><span class="n">most_similar</span><span class="p">(</span>
     <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">vectors</span><span class="p">[</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">strings</span><span class="p">[</span><span class="n">your_word</span><span class="p">]]]),</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
@@ -551,27 +562,11 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence1</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">has_vector</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">vector_norm</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">is_oov</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The True 4.70935 False
-United True 5.9802823 False
-States True 5.760805 False
-of True 4.97793 False
-America True 6.376198 False
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="doc-similarity">
-<h2><span class="section-number">3.3. </span>Doc Similarity<a class="headerlink" href="#doc-similarity" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.3. </span>Doc Similarity<a class="headerlink" href="#doc-similarity" title="Permalink to this headline">¶</a></h2>
+<p>In spaCy we can do this same thing at the document level. Through word vectors we can calculate the similarity between two documents. Let’s look at the example from spaCy’s documentation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_md&quot;</span><span class="p">)</span>  <span class="c1"># make sure to use larger package!</span>
@@ -591,7 +586,8 @@ America True 6.376198 False
 </div>
 </div>
 <div class="section" id="word-similarity">
-<h2><span class="section-number">3.4. </span>Word Similarity<a class="headerlink" href="#word-similarity" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.4. </span>Word Similarity<a class="headerlink" href="#word-similarity" title="Permalink to this headline">¶</a></h2>
+<p>We can also calculate the similarity between two given words.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Similarity of tokens and spans</span>
@@ -607,6 +603,10 @@ America True 6.376198 False
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="conclusion">
+<h2><span class="section-number">4.5. </span>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>As we have seen in this notebook, spaCy is made up of a series of complex P</p>
 </div>
 </div>
 
@@ -640,11 +640,11 @@ America True 6.376198 False
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="02_linguistic_annotations.html" title="previous page">
+        <a class="left-prev" href="03_word_vectors.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">2. </span>Getting Started with spaCy and its Linguistic Annotations</p>
+                <p class="prevnext-title"><span class="section-number">3. </span>Word Vectors and spaCy</p>
             </div>
         </a>
     </div>
