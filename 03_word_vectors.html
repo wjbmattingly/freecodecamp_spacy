@@ -253,6 +253,11 @@
    3.3. Word Similarity
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   3.4. Conclusion
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -509,27 +514,11 @@ You should consider upgrading via the &#39;C:\Users\wma22\AppData\Local\Programs
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence1</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">has_vector</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">vector_norm</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">is_oov</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The True 4.70935 False
-United True 5.9802823 False
-States True 5.760805 False
-of True 4.97793 False
-America True 6.376198 False
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="doc-similarity">
 <h2><span class="section-number">3.2. </span>Doc Similarity<a class="headerlink" href="#doc-similarity" title="Permalink to this headline">¶</a></h2>
+<p>In spaCy we can do this same thing at the document level. Through word vectors we can calculate the similarity between two documents. Let’s look at the example from spaCy’s documentation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_md&quot;</span><span class="p">)</span>  <span class="c1"># make sure to use larger package!</span>
@@ -550,6 +539,7 @@ America True 6.376198 False
 </div>
 <div class="section" id="word-similarity">
 <h2><span class="section-number">3.3. </span>Word Similarity<a class="headerlink" href="#word-similarity" title="Permalink to this headline">¶</a></h2>
+<p>We can also calculate the similarity between two given words.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Similarity of tokens and spans</span>
@@ -565,6 +555,10 @@ America True 6.376198 False
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="conclusion">
+<h2><span class="section-number">3.4. </span>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>As we have seen in this notebook, spaCy is made up of a series of complex P</p>
 </div>
 </div>
 
