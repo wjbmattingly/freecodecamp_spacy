@@ -237,6 +237,11 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-add-pipes">
+   4.2. How to Add Pipes
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -270,7 +275,7 @@ INFO:tensorflow:Enabling control flow v2
 <div class="section" id="standard-pipes-components-and-factories-available-from-spacy">
 <h2><span class="section-number">4.1. </span>Standard Pipes (Components and Factories) Available from spaCy<a class="headerlink" href="#standard-pipes-components-and-factories-available-from-spacy" title="Permalink to this headline">¶</a></h2>
 <p>SpaCy is much more than an NLP framework. It is also a way of designing and implementing complex pipelines. A <strong>pipeline</strong> is a sequence of <strong>pipes</strong>, or actors on data, that make alterations to the data or extract information from it. In some cases, later pipes require the output from earlier pipes. In other cases, a pipe can exist entirely on its own. An example can be see in the image below.</p>
-<p><img alt="sample_pipeline.png" src="attachment:ba5fb50e-5155-4af5-807f-4aa85da34176.png" /></p>
+<a class="bg-primary mb-1 reference internal image-reference" href="../images/sample_pipeline.png"><img alt="sample_pipeline" class="bg-primary mb-1 align-center" src="../images/sample_pipeline.png" style="width: 400px;" /></a>
 <p>Here, we see an input, in this case a sentence, enter the pipeline from the left. Two pipes are activated on this, a rules-based named entity recognizer known as an EntityRuler which finds entities and an EntityLinker pipe that identifies what entity that is to perform toponym resolution. The sentence is then outputted with the sentence and the entities annotated. At this point, we could use the doc.ents feature to find the entities in our sentence. In spaCy, you will often use pipelines that are more sophisticated than this. You will specifically use a Tok2Vec input layer to vectorize your input sentence. This will allow machine learning pipes to make predictions.</p>
 <p>Below is a complete list of the AttributeRuler pipes available to you from spaCy and the Matchers.</p>
 <div class="section" id="attribute-rulers">
@@ -301,6 +306,82 @@ INFO:tensorflow:Enabling control flow v2
 <li><p>PhraseMatcher</p></li>
 </ul>
 </div>
+</div>
+<div class="section" id="how-to-add-pipes">
+<h2><span class="section-number">4.2. </span>How to Add Pipes<a class="headerlink" href="#how-to-add-pipes" title="Permalink to this headline">¶</a></h2>
+<p>In most cases, you will use an off-the-shelf spaCy model. In some cases, however, an off-the-shelf model will not fill your needs or will perform a specific task very slowly. A good example of this is sentence tokenization. Imagine if you had a document that was around 1 million sentences long. Even if you used the small English model, your model would take a long time to process those 1 million sentences and separate them. In this instance, you would want to make a blank English model and simply add the Sentencizer to it. The reason is because each pipe in a pipeline will be activated (unless specified) and that means that each pipe from Dependency Parser to named entity recognition will be performed on your data. This is a serious waste of computational resources and time. The small model may take hours to achieve this task. By creating a blank model and simply adding a Sentencizer to it, you can reduce this time to merely minutes.</p>
+<p>To demonstrate this process, let’s first create a blank model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, notice that we have used spacy.blank, rather than spacy.load. When we create a blank model, we simply pass the two letter combination for a language, in this case, en for English. Now, let’s use the add_pipe() command to add a new pipe to it. We will simply add a sentencizer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;sentencizer&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;spacy.pipeline.sentencizer.Sentencizer at 0x2167b5468c0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt&quot;</span><span class="p">)</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="n">nlp</span><span class="o">.</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">5278439</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>94133
+Wall time: 7.54 s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp2</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="n">nlp2</span><span class="o">.</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">5278439</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp2</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>112074
+Wall time: 47min 15s
+</pre></div>
+</div>
+</div>
+</div>
+<p>The difference in time here is remarkable. Our text string was around 5.2 million characters. The blank model with just the Sentencizer completed its task in 7.54 seconds and found around 94k sentences. The small English model, the most efficient one offered by spaCy, did the same task in 46 minutes and 15 seconds and found around 112k sentences. The small English model, in other words, took approximately 380 times longer.</p>
+<p>Often times you need to find sentences quickly, not necessarily accurately. In these instances, it makes sense to know tricks like the one above. This notebook concludes part one of this book. It has given you an umbrella overview of spaCy. Over the next few parts of this book, we will deep dive into specific areas and use spaCy to solve general and domain-specific problems from several different areas of industry. Join me as we learn to create custom models and do custom things to leverage the full potential of the spaCy library.</p>
 </div>
 </div>
 
