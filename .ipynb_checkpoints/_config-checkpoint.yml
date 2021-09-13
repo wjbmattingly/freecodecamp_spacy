@@ -1,7 +1,7 @@
 # Book settings
 title: Introduction to spaCy 3
 author: William Mattingly
-logo: 'images/freecodecamp.jiff'
+logo: 'images/freecodecamp_small.jpg'
 execute:
   execute_notebooks: 'off'
 parse:
