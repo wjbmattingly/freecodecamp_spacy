@@ -1,0 +1,104 @@
+
+BloombergExchangeCode	BloombergCompositeCode	Country	Description	ISOMIC	Google Prefix	EODcode	NumStocks
+AF	AR	Argentina	Bolsa de Comercio de Buenos Aires	XBUE		BA	12
+AO	AU	Australia	National Stock Exchange of Australia	XNEC			1
+AT	AU	Australia	Asx - All Markets	XASX	ASX	AU	875
+AV		Austria	Wiener Boerse Ag	XWBO	VIE	VI	38
+BI		Bahrain	Bahrain Bourse	XBAH			4
+BD		Bangladesh	Dhaka Stock Exchange Ltd	XDHA			18
+BB		Belgium	Nyse Euronext - Euronext Brussels	XBRU	EBR	BR	75
+BS	BZ	Brazil	XBSP	BVMF	BVMF	SA	369
+CF	CN	Canada	Canadian Securities Exchange	XCNQ		CN	59
+CT	CN	Canada	Toronto Stock Exchange	XTSE	TSE	TO	520
+CV	CN	Canada	TSX Venture Exchange	XTSX		V	138
+QF	CN	Canada	Aequitas NEO Exchange (Lit Book)	NEOE		NEO	2
+CC	CI	Chile	Santiago Stock Exchange	XSGO		SN	65
+CG	CH	China	Shanghai Stock Exchange	XSHG	SHA	SHG	1,268
+CS	CH	China	Shenzhen Stock Exchange	XSHE	SHE	SHE	1,806
+CX	CB	Colombia	Bolsa De Valores De Colombia	XBOG			33
+ZA	CZ	Croatia	Zagreb Stock Exchange	XZAG			1
+CY		Cyprus	Cyprus Stock Exchange	XCYS			1
+CK	CP	Czech Republic	Prague Stock Exchange	XPRA	PRG		10
+DC		Denmark	Omx Nordic Exchange Copenhagen A/S	XCSE	CPH	CO	65
+EC	EY	Egypt	Egyptian Exchange	XCAI	CAI		33
+FH		Finland	Nasdaq Omx Helsinki Ltd.	XHEL	HEL	HE	74
+FP		France	Euronext Paris	XPAR	EPA	PA	236
+BQ	GR	Germany	Equiduct Trading	XEQT			3
+GB	GR	Germany	Boerse Berlin	XBER	FRA	BE	3
+GD	GR	Germany	Dusseldorf Stock Exchange	XDUS		DU	1
+GF	GR	Germany	Frankfurt Stock Exchange	XFRA	FRA	F	167
+GM	GR	Germany	Munich Stock Exchange	XMUN		MU	1
+GS	GR	Germany	Stuttgart Stock Exchange	XSTU		STU	1
+GY	GR	Germany	Deutsche Boerse Xetra	XETR	ETR	XETRA	106
+QT	GR	Germany	QUOTRIX	XQTX			1
+GA		Greece	Athens Exchange S.A. Cash Market	XATH	ATH	AT	28
+HK		Hong Kong	Hong Kong Exchange	XHKG	HKG	HK	1,836
+HB		Hungary	Budapest Stock Exchange	XBUD	BDP	BUD	5
+RF		Iceland	First North Iceland	XICE			1
+IB	IN	India	BSE LTD	XBOM	BOM	BSE	440
+IS	IN	India	National Stock Exchange Of India	XNSE	NSE	NSE	556
+IJ		Indonesia	Indonesia Stock Exchange	XIDX	JAK	JK	130
+ID		Ireland	Irish Stock Exchange - All Market	XDUB	IRE	IR	29
+IT		Israel	Tel Aviv Stock Exchange	XTAE	TLV	TA	161
+IM		Italy	Borsa Italiana S.P.A.	MTAA	BIT	MI	146
+JT	JP	Japan	Tokyo Stock Exchange	XTKS	TYO	TSE	1,734
+JR		Jordan	Amman Stock Exchange	XAMM			5
+KN		Kenya	Nairobi Stock Exchange	XNAI			5
+KK		Kuwait	Kuwait Stock Exchange	XKUW			33
+LX		Luxembourg	Luxembourg Stock Exchange	XLUX			1
+MK		Malaysia	Bursa Malaysia	XKLS	KUL	KLSE	252
+MM		Mexico	Bolsa Mexicana De Valores (Mexican Stock Exchange)	XMEX	BMV	MX	90
+MC		Morocco	Casablanca Stock Exchange	XCAS			12
+NZ		New Zealand	New Zealand Exchange Ltd	XNZE	NZE	NZ	55
+NL		Nigeria	Nigerian Stock Exchange	XNSA			12
+NO		Norway	Oslo Bors Asa	XOSL		OL	113
+NS		Norway	Norwegian OTC Market	NOTC			1
+OM		Oman	Muscat Securities Market	XMUS			9
+PK	PA	Pakistan	Karachi Stock Exchange (Guarantee) Limited	XKAR	KAR	KAR	41
+PE		Peru	Bolsa De Valores De Lima	XLIM			24
+PM		Philippines	Philippine Stock Exchange Inc.	XPHS	PSE	PSE	70
+PW		Poland	Warsaw Stock Exchange/Equities/Main Market	XWAR	WSE	WAR	65
+PL		Portugal	Nyse Euronext - Euronext Lisbon	XLIS	ELI	LS	19
+QD		Qatar	Qatar Exchange	DSMD			35
+RE	RO	Romania	Spot Regulated Market - Bvb	XBSE			8
+RX	RM	Russia	Standard-Classica-Forts	MISX	MCX	MCX	66
+AB		Saudi Arabia	Saudi Stock Exchange	XSAU		SR	130
+BC		Senegal		XBRV			1
+SP		Singapore	Singapore Exchange	XSES	SGX	SG	243
+SV		Slovenia	Ljubljana Stock Exchange (Official Market)	XLJU			3
+SJ		South Africa	Johannesburg Stock Exchange	XJSE	JNB	JSE	170
+KP	KS	South Korea	Korea Exchange (Stock Market)	XKRX	KRX	KO	422
+KQ	KS	South Korea	Korea Exchange (Kosdaq)	XKOS	KOSDAQ	KQ	270
+SM		Spain	Bolsa De Madrid	XMAD	BME	MC	125
+SL		Sri Lanka	Colombo Stock Exchange	XCOL			4
+NG		Sweden	Nordic Growth Market	XNGM			1
+SS		Sweden	Nasdaq Omx Nordic	XSTO	STO	ST	337
+SE	SW	Switzerland	Six Swiss Exchange	XSWX	SWX	SW	127
+VX	SW	Switzerland	Six Swiss - Blue Chips Segment	XVTX	VTX	VX	31
+SY		Syria	Damascus Securities Exchange	XDSE			1
+TG		Taiwan	Tapei Exchange	ROCO		TWO	22
+TT		Taiwan	Taiwan Stock Exchange	XTAI	TPE	TW	567
+TB		Thailand	Stock Exchange Of Thailand	XBKK	BAK	BK	375
+MT		The Netherlands	TOM MTF	TOMX			1
+NA		The Netherlands	Nyse Euronext - Euronext Amsterdam	XAMS	AMS	AS	83
+TI		Turkey	Istanbul Stock Exchange	XIST	IST	IS	92
+DB	UH	United Arab Emirates	Dubai Financial Market	XDFM	DFM		18
+DH	UH	United Arab Emirates	Nasdaq Dubai	DIFX			7
+DU	UH	United Arab Emirates	Abu Dhabi Securities Exchange	XADS			16
+EB		United Kingdom	BATS Trading Europe	BATE			2
+IX		United Kingdom	Chi-X Eruope	CHIX			2
+LI		United Kingdom	London Stock Exchange International		LON	IL	39
+LN		United Kingdom	London Stock Exchange	XLON	LON	LSE	585
+PO		United Kingdom	ITG Posit	XPOS			1
+TQ		United Kingdom	Turquoise	TRQX			3
+XB		United Kingdom	Cinnober BOAT	BOAT			1
+UA	US	USA	NYSE American	XASE	NYSEAMERICAN	US	273
+UF	US	USA	CBOE BATS BZX	BATS	BATS	US	1
+UN	US	USA	New York Stock Exchange	XNYS	NYSE	US	3,239
+UP	US	USA	NYSE Arca	ARCX	NYSEARCA	US	3
+UQ	US	USA	NASDAQ Global Market	XNMS	NASDAQ	US	682
+UR	US	USA	NASDAQ Capital Market	XNCM	NASDAQ	US	2,209
+UV	US	USA	OTC markets	OOTC	OTCMKTS	US	2,433
+UW	US	USA	NASDAQ Global Select	XNGS	NASDAQ	US	1,768
+VH	VN	Vietnam	Hanoi Stock Exchange	HSTC			4
+VM	VN	Vietnam	Hochiminh Stock Exchange	XSTC		VN	40
