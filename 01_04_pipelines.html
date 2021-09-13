@@ -51,7 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="3. Word Vectors and spaCy" href="03_word_vectors.html" />
+    <link rel="next" title="5. Using SpaCy’s EntityRuler" href="02_01_entityruler.html" />
+    <link rel="prev" title="3. Word Vectors and spaCy" href="01_03_word_vectors.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -97,23 +98,45 @@
 </p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="01_install_and_containers.html">
+  <a class="reference internal" href="01_01_install_and_containers.html">
    1. The Basics of spaCy
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="02_linguistic_annotations.html">
+  <a class="reference internal" href="01_02_linguistic_annotations.html">
    2. spaCy Linguistic Annotations
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03_word_vectors.html">
+  <a class="reference internal" href="01_03_word_vectors.html">
    3. Word Vectors and spaCy
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    4. spaCy Pipelines
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Rules-Based spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_01_entityruler.html">
+   5. How to use the spaCy EntityRulere
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_04_simple_regex.html">
+   6. How to use RegEx in spaCy (Basic)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_05_complex_regex.html">
+   7. How to use RegEx in spaCy (Advanced)
   </a>
  </li>
 </ul>
@@ -157,7 +180,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/04_pipelines.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/01_04_pipelines.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -177,10 +200,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F04_pipelines.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F01_04_pipelines.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/04_pipelines.ipynb"><button
+        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/01_04_pipelines.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -200,7 +223,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/04_pipelines.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/01_04_pipelines.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -244,6 +267,16 @@
    4.2. How to Add Pipes
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examining-a-pipeline">
+   4.3. Examining a Pipeline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   4.4. Conclusion
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -255,9 +288,11 @@
         
               <div>
                 
-  <div class="section" id="spacy-s-pipelines">
-<h1><span class="section-number">4. </span>spaCy’s Pipelines<a class="headerlink" href="#spacy-s-pipelines" title="Permalink to this headline">¶</a></h1>
-<p>In this notebook, we will be learning about the various pipelines in spaCy. As we have seen, spaCy offers both heuristic (rules-based) and machine learning natural language processing solutions. These solutions are activated by pipes. In this notebook, you will learn about pipes and pipelines generally and the ones offered by spaCy specifically. In a later notebook, we will explore how you can create custom pipes and add them to a spaCy pipeline. Before we jump in, let’s import spaCy.</p>
+  <div class="section" id="center-spacy-s-pipelines-center">
+<h1><span class="section-number">4. </span><center>spaCy’s Pipelines</center><a class="headerlink" href="#center-spacy-s-pipelines-center" title="Permalink to this headline">¶</a></h1>
+<center>Dr. W.J.B. Mattingly</center>
+<center>Smithsonian Data Science Lab and United States Holocaust Memorial Museum</center>
+<center>August 2021</center><p>In this notebook, we will be learning about the various pipelines in spaCy. As we have seen, spaCy offers both heuristic (rules-based) and machine learning natural language processing solutions. These solutions are activated by pipes. In this notebook, you will learn about pipes and pipelines generally and the ones offered by spaCy specifically. In a later notebook, we will explore how you can create custom pipes and add them to a spaCy pipeline. Before we jump in, let’s import spaCy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
@@ -383,7 +418,75 @@ Wall time: 47min 15s
 </div>
 </div>
 <p>The difference in time here is remarkable. Our text string was around 5.2 million characters. The blank model with just the Sentencizer completed its task in 7.54 seconds and found around 94k sentences. The small English model, the most efficient one offered by spaCy, did the same task in 46 minutes and 15 seconds and found around 112k sentences. The small English model, in other words, took approximately 380 times longer.</p>
-<p>Often times you need to find sentences quickly, not necessarily accurately. In these instances, it makes sense to know tricks like the one above. This notebook concludes part one of this book. It has given you an umbrella overview of spaCy. Over the next few parts of this book, we will deep dive into specific areas and use spaCy to solve general and domain-specific problems from several different areas of industry. Join me as we learn to create custom models and do custom things to leverage the full potential of the spaCy library.</p>
+<p>Often times you need to find sentences quickly, not necessarily accurately. In these instances, it makes sense to know tricks like the one above. This notebook concludes part one of this book.</p>
+</div>
+<div class="section" id="examining-a-pipeline">
+<h2><span class="section-number">4.3. </span>Examining a Pipeline<a class="headerlink" href="#examining-a-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>In spaCy, we have a few different ways to study a pipeline. If we want to do this in a script, we can do the following command:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp2</span><span class="o">.</span><span class="n">analyze_pipes</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;summary&#39;: {&#39;tok2vec&#39;: {&#39;assigns&#39;: [&#39;doc.tensor&#39;],
+   &#39;requires&#39;: [],
+   &#39;scores&#39;: [],
+   &#39;retokenizes&#39;: False},
+  &#39;tagger&#39;: {&#39;assigns&#39;: [&#39;token.tag&#39;],
+   &#39;requires&#39;: [],
+   &#39;scores&#39;: [&#39;tag_acc&#39;],
+   &#39;retokenizes&#39;: False},
+  &#39;parser&#39;: {&#39;assigns&#39;: [&#39;token.dep&#39;,
+    &#39;token.head&#39;,
+    &#39;token.is_sent_start&#39;,
+    &#39;doc.sents&#39;],
+   &#39;requires&#39;: [],
+   &#39;scores&#39;: [&#39;dep_uas&#39;,
+    &#39;dep_las&#39;,
+    &#39;dep_las_per_type&#39;,
+    &#39;sents_p&#39;,
+    &#39;sents_r&#39;,
+    &#39;sents_f&#39;],
+   &#39;retokenizes&#39;: False},
+  &#39;attribute_ruler&#39;: {&#39;assigns&#39;: [],
+   &#39;requires&#39;: [],
+   &#39;scores&#39;: [],
+   &#39;retokenizes&#39;: False},
+  &#39;lemmatizer&#39;: {&#39;assigns&#39;: [&#39;token.lemma&#39;],
+   &#39;requires&#39;: [],
+   &#39;scores&#39;: [&#39;lemma_acc&#39;],
+   &#39;retokenizes&#39;: False},
+  &#39;ner&#39;: {&#39;assigns&#39;: [&#39;doc.ents&#39;, &#39;token.ent_iob&#39;, &#39;token.ent_type&#39;],
+   &#39;requires&#39;: [],
+   &#39;scores&#39;: [&#39;ents_f&#39;, &#39;ents_p&#39;, &#39;ents_r&#39;, &#39;ents_per_type&#39;],
+   &#39;retokenizes&#39;: False}},
+ &#39;problems&#39;: {&#39;tok2vec&#39;: [],
+  &#39;tagger&#39;: [],
+  &#39;parser&#39;: [],
+  &#39;attribute_ruler&#39;: [],
+  &#39;lemmatizer&#39;: [],
+  &#39;ner&#39;: []},
+ &#39;attrs&#39;: {&#39;token.lemma&#39;: {&#39;assigns&#39;: [&#39;lemmatizer&#39;], &#39;requires&#39;: []},
+  &#39;doc.sents&#39;: {&#39;assigns&#39;: [&#39;parser&#39;], &#39;requires&#39;: []},
+  &#39;token.is_sent_start&#39;: {&#39;assigns&#39;: [&#39;parser&#39;], &#39;requires&#39;: []},
+  &#39;token.dep&#39;: {&#39;assigns&#39;: [&#39;parser&#39;], &#39;requires&#39;: []},
+  &#39;token.tag&#39;: {&#39;assigns&#39;: [&#39;tagger&#39;], &#39;requires&#39;: []},
+  &#39;doc.ents&#39;: {&#39;assigns&#39;: [&#39;ner&#39;], &#39;requires&#39;: []},
+  &#39;token.ent_iob&#39;: {&#39;assigns&#39;: [&#39;ner&#39;], &#39;requires&#39;: []},
+  &#39;token.head&#39;: {&#39;assigns&#39;: [&#39;parser&#39;], &#39;requires&#39;: []},
+  &#39;doc.tensor&#39;: {&#39;assigns&#39;: [&#39;tok2vec&#39;], &#39;requires&#39;: []},
+  &#39;token.ent_type&#39;: {&#39;assigns&#39;: [&#39;ner&#39;], &#39;requires&#39;: []}}}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note the dictionary structure. This tells us not only what is inside the pipeline, but its order. Each key after “summary” is a pipe. The value is a dictionary. This dictionary tells us a few different things. All of these value dictionaries state: “assigns” which corresponds to a value of what that particular pipe assigns to the token and doc as it passes through the pipeline. In some cases, there will be a key of “scores” in the dictionary. This indicates how the machine learning model was evaluated. We will learn more about model evaluation in our machine learning section below.</p>
+</div>
+<div class="section" id="conclusion">
+<h2><span class="section-number">4.4. </span>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>This notebook concludes part one of this book. It has given you an umbrella overview of spaCy. Over the next few parts of this book, we will deep dive into specific areas and use spaCy to solve general and domain-specific problems from several different areas of industry. Join me as we learn to create custom models and do custom things to leverage the full potential of the spaCy library.</p>
 </div>
 </div>
 
@@ -417,14 +520,23 @@ Wall time: 47min 15s
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="03_word_vectors.html" title="previous page">
+        <a class="left-prev" href="01_03_word_vectors.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">3. </span>Word Vectors and spaCy</p>
+                <p class="prevnext-title"><span class="section-number">3. </span><center>Word Vectors and spaCy</center></p>
             </div>
         </a>
     </div>
+     <div id="next">
+        <a class="right-next" href="02_01_entityruler.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">5. </span><center>Using SpaCy’s EntityRuler</center></p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         

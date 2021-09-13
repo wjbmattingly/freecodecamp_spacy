@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7. Working with Multi-Word Token Entities and RegEx in spaCy 3 &#8212; Introduction to spaCy 3</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="6. Using RegEx with spaCy" href="02_04_simple_regex.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/freecodecamp_small.jpg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to spaCy 3</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   <p align="center">
+    INTRODUCTION TO SPACY 3
+   </p>
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  The Building Blocks of spaCy 3
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_01_install_and_containers.html">
+   1. The Basics of spaCy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_02_linguistic_annotations.html">
+   2. spaCy Linguistic Annotations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_03_word_vectors.html">
+   3. Word Vectors and spaCy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_04_pipelines.html">
+   4. spaCy Pipelines
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Rules-Based spaCy
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_01_entityruler.html">
+   5. How to use the spaCy EntityRulere
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_04_simple_regex.html">
+   6. How to use RegEx in spaCy (Basic)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   7. How to use RegEx in spaCy (Advanced)
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/02_05_complex_regex.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/wjbmattingly/freecodecamp_spacy"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F02_05_complex_regex.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/02_05_complex_regex.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/02_05_complex_regex.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#key-concepts-in-this-notebook">
+   7.1. Key Concepts in this Notebook
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problems-with-multi-word-tokens-in-spacy-as-entities">
+   7.2. Problems with Multi-Word Tokens in spaCy as Entities
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-multi-word-tokens">
+   7.3. Extract Multi-Word Tokens
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reconstruct-spans">
+   7.4. Reconstruct Spans
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inject-the-spans-into-the-doc-ents">
+   7.5. Inject the Spans into the doc.ents
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#give-priority-to-longer-spans">
+   7.6. Give priority to Longer Spans
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#video">
+   7.7. Video
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="center-working-with-multi-word-token-entities-and-regex-in-spacy-3-center">
+<h1><span class="section-number">7. </span><center>Working with Multi-Word Token Entities and RegEx in spaCy 3</center><a class="headerlink" href="#center-working-with-multi-word-token-entities-and-regex-in-spacy-3-center" title="Permalink to this headline">¶</a></h1>
+<center>Dr. W.J.B. Mattingly</center>
+<center>Smithsonian Data Science Lab and United States Holocaust Memorial Museum</center>
+<center>January 2021</center><div class="section" id="key-concepts-in-this-notebook">
+<h2><span class="section-number">7.1. </span>Key Concepts in this Notebook<a class="headerlink" href="#key-concepts-in-this-notebook" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Working with Multi-Word Tokens and RegEx in spaCy 3x<br></p></li>
+<li><p>RegEx’s Finditer<br></p></li>
+<li><p>Spans</p></li>
+</ol>
+</div>
+<div class="section" id="problems-with-multi-word-tokens-in-spacy-as-entities">
+<h2><span class="section-number">7.2. </span>Problems with Multi-Word Tokens in spaCy as Entities<a class="headerlink" href="#problems-with-multi-word-tokens-in-spacy-as-entities" title="Permalink to this headline">¶</a></h2>
+<p>As we saw in <strong>01.03: Rules-Based NER</strong>, we can use spaCy’s Matcher to grab multi-word tokens, or tokens that span multiple tokens. The main problem with this, however, is that these multi-word tokens are not placed into the doc.ents. This means that we cannot access them the same way we would other entities. In this notebook, we will figure out how to solve that problem with a simple workflow:</p>
+<ol class="simple">
+<li><p>Extract Multi-Word Tokens with re.finditer()<br></p></li>
+<li><p>Reconstruct the spans in the spaCy doc<br></p></li>
+<li><p>Give priority to longer spans (Optional)<br></p></li>
+<li><p>Inject the Spans into doc.ents</p></li>
+</ol>
+<p>We will cover each of these steps in turn.</p>
+</div>
+<div class="section" id="extract-multi-word-tokens">
+<h2><span class="section-number">7.3. </span>Extract Multi-Word Tokens<a class="headerlink" href="#extract-multi-word-tokens" title="Permalink to this headline">¶</a></h2>
+<p>First, we need to grab the multi-word tokens. In this notebook, we are going to try and grab a multi-word token. In this case, a person whose first name begins with Paul. In the RegEx below, we specify that we are looking for any string that starts with “Paul” and then is followed by a capitalized letter. We then tell it to grab the entire second word until the end of the word.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Paul Newman was an American actor, but Paul Hollywood is a British TV Host. The name Paul is quite common.&quot;</span>
+
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;Paul [A-Z]\w+&quot;</span>
+
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;re.Match object; span=(0, 11), match=&#39;Paul Newman&#39;&gt;
+&lt;re.Match object; span=(39, 53), match=&#39;Paul Hollywood&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that we have not grabbed the final “Paul” which is not followed by a last name. In this case, we are not interested in that Paul. Now that we know how to grab the multi-word tokens, we need to have a way to parse them in spaCy.</p>
+</div>
+<div class="section" id="reconstruct-spans">
+<h2><span class="section-number">7.4. </span>Reconstruct Spans<a class="headerlink" href="#reconstruct-spans" title="Permalink to this headline">¶</a></h2>
+<p>This next stage is a bit more complicated, but works quite well once you understand the process. First, we need to import the libraries we will need. Note that we are also adding Span from spacy.tokens.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Span</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:tensorflow:Enabling eager execution
+INFO:tensorflow:Enabling v2 tensorshape
+INFO:tensorflow:Enabling resource variables
+INFO:tensorflow:Enabling tensor equality
+INFO:tensorflow:Enabling control flow v2
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will do the same thing that we did above with our text and our pattern.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Paul Newman was an American actor, but Paul Hollywood is a British TV Host. The name Paul is quite common.&quot;</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;Paul [A-Z]\w+&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we will create a blank spaCy English model and create the doc object of the text. It will have no entities in it because we are working with a blank model that does not have an “ner” component.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Even though this part is unnecessary, it is good to do it here because in other situations you will have entities. If you do, you need to store them as a separate list to which we will append things.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">original_ents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s iterate over the results from re.finditer(). In this cell, we are goingg to grab the start and end from each match. we will then create a temporary span that will be equal to where the characters start and end in the doc object. This is important because tokens and characters do not always align correctly. Finally, we append to mwt_ents, the start, end, and text. The text is not necessary but it will help with debugging.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mwt_ents</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">doc</span><span class="o">.</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()</span>
+    <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">char_span</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mwt_ents</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">span</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="inject-the-spans-into-the-doc-ents">
+<h2><span class="section-number">7.5. </span>Inject the Spans into the doc.ents<a class="headerlink" href="#inject-the-spans-into-the-doc-ents" title="Permalink to this headline">¶</a></h2>
+<p>With that data, we can iterate over each entity and identify where it begins and ends in spaCy. Note, we are using the spaCy Span class. This allows us to create a span object and assign it a custom label. With this data, we can append each Span to original_ents.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">mwt_ents</span><span class="p">:</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">ent</span>
+    <span class="n">per_ent</span> <span class="o">=</span> <span class="n">Span</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;PERSON&quot;</span><span class="p">)</span>
+    <span class="n">original_ents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">per_ent</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And finally, we set doc.ents equal to original_ents. This effectively loads the spans back into the spaCy doc.ents.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span><span class="o">.</span><span class="n">ents</span> <span class="o">=</span> <span class="n">original_ents</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s iterate over the ents as we normally would.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Paul Newman PERSON
+Paul Hollywood PERSON
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that these are now properly identified entities in our doc.ents class.</p>
+</div>
+<div class="section" id="give-priority-to-longer-spans">
+<h2><span class="section-number">7.6. </span>Give priority to Longer Spans<a class="headerlink" href="#give-priority-to-longer-spans" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, the situation is not so neat. Sometimes our custom RegEx entities will overlap with spaCy’s Entities</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Paul Newman was an American actor, but Paul Hollywood is a British TV Host.&quot;</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;Hollywood&quot;</span>
+
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Paul Newman PERSON
+American NORP
+Paul Hollywood PERSON
+British NORP
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s say that we create a new entity. Maybe words associated with Cinema. So, we want to classify Hollywood as a tag “CINEMA”. Now, in the above text, Hollywood is clearly associated with Paul Hollywood, but let’s imagine for a moment that it is not. Let’s try and run the same code as above. If we do, we notice that we get an error.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mwt_ents</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">original_ents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">doc</span><span class="o">.</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">)</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">span</span><span class="p">()</span>
+    <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">char_span</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mwt_ents</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">span</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">mwt_ents</span><span class="p">:</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">ent</span>
+    <span class="n">per_ent</span> <span class="o">=</span> <span class="n">Span</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;CINEMA&quot;</span><span class="p">)</span>
+    <span class="n">original_ents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">per_ent</span><span class="p">)</span>
+
+<span class="n">doc</span><span class="o">.</span><span class="n">ents</span> <span class="o">=</span> <span class="n">original_ents</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;re.Match object; span=(44, 53), match=&#39;Hollywood&#39;&gt;
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">425</span><span class="n">d356ded45</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">original_ents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">per_ent</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> 
+<span class="ne">---&gt; </span><span class="mi">14</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span> <span class="o">=</span> <span class="n">original_ents</span>
+
+<span class="nn">c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages\spacy\tokens\doc.pyx</span> in <span class="ni">spacy.tokens.doc.Doc.ents.__set__</span><span class="nt">()</span>
+
+<span class="nn">c:\users\wma22\appdata\local\programs\python\python39\lib\site-packages\spacy\tokens\doc.pyx</span> in <span class="ni">spacy.tokens.doc.Doc.set_ents</span><span class="nt">()</span>
+
+<span class="ne">ValueError</span>: [E1010] Unable to set entity information for token 9 which is included in more than one span in entities, blocked, missing or outside.
+</pre></div>
+</div>
+</div>
+</div>
+<p>This error tells us that one of our tokens from the finditer() overlapped with one that our “ner” component found. This is a problem that can be rectified with spaCy’s filter_spans. This gives primacy to longer spans. Notice how we have allowed the Paul Hollywood entity to be a PERSON, rather than CINEMA. This is because Hollywood is shorter than Paul Hollywood.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spacy.util</span> <span class="kn">import</span> <span class="n">filter_spans</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="n">filter_spans</span><span class="p">(</span><span class="n">original_ents</span><span class="p">)</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">ents</span> <span class="o">=</span> <span class="n">filtered</span>
+<span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Paul Newman PERSON
+American NORP
+Paul Hollywood PERSON
+British NORP
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="video">
+<h2><span class="section-number">7.7. </span>Video<a class="headerlink" href="#video" title="Permalink to this headline">¶</a></h2>
+<p>Check out the video below on RegEx and Multi-Word Tokens in spaCy 3.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%html</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;560&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;315&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://www.youtube.com/embed/wpyCzodvO3A&quot;</span> <span class="na">frameborder</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">allow</span><span class="o">=</span><span class="s">&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot;</span> <span class="na">allowfullscreen</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="02_04_simple_regex.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">6. </span><center>Using RegEx with spaCy</center></p>
+            </div>
+        </a>
+    </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By William Mattingly<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

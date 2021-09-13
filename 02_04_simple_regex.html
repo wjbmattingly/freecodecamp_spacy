@@ -1,0 +1,682 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6. Using RegEx with spaCy &#8212; Introduction to spaCy 3</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. Working with Multi-Word Token Entities and RegEx in spaCy 3" href="02_05_complex_regex.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="02_03_phrase_matcher.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/freecodecamp_small.jpg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to spaCy 3</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   <p align="center">
+    INTRODUCTION TO SPACY 3
+   </p>
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  The Building Blocks of spaCy 3
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_01_install_and_containers.html">
+   1. The Basics of spaCy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_02_linguistic_annotations.html">
+   2. spaCy Linguistic Annotations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_03_word_vectors.html">
+   3. Word Vectors and spaCy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_04_pipelines.html">
+   4. spaCy Pipelines
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Rules-Based spaCy
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_01_entityruler.html">
+   5. How to use the spaCy EntityRulere
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   6. How to use RegEx in spaCy (Basic)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_05_complex_regex.html">
+   7. How to use RegEx in spaCy (Advanced)
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/02_04_simple_regex.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/wjbmattingly/freecodecamp_spacy"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F02_04_simple_regex.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/02_04_simple_regex.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/02_04_simple_regex.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#key-concepts-in-this-notebook">
+   6.1. Key Concepts in this Notebook
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-regular-expressions-regex">
+   6.2. What is Regular Expressions (RegEx)?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-strengths-of-regex">
+   6.3. The Strengths of RegEx
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-weaknesses-of-regex">
+   6.4. The Weaknesses of RegEx
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-use-regex-in-python">
+   6.5. How to Use RegEx in Python
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-use-regex-in-spacy">
+   6.6. How to Use RegEx in spaCy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#video">
+   6.7. Video
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="center-using-regex-with-spacy-center">
+<h1><span class="section-number">6. </span><center>Using RegEx with spaCy</center><a class="headerlink" href="#center-using-regex-with-spacy-center" title="Permalink to this headline">¶</a></h1>
+<center>Dr. W.J.B. Mattingly</center>
+<center>Smithsonian Data Science Lab and United States Holocaust Memorial Museum</center>
+<center>January 2021</center><div class="section" id="key-concepts-in-this-notebook">
+<h2><span class="section-number">6.1. </span>Key Concepts in this Notebook<a class="headerlink" href="#key-concepts-in-this-notebook" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>What is RegEx (Regular Expressions)?<br></p></li>
+<li><p>The Strengths of RegEx<br></p></li>
+<li><p>The Weaknesses of RegEx<br></p></li>
+<li><p>How to use RegEx in Python<br></p></li>
+<li><p>How to use RegEx in spaCy<br></p></li>
+</ol>
+</div>
+<div class="section" id="what-is-regular-expressions-regex">
+<h2><span class="section-number">6.2. </span>What is Regular Expressions (RegEx)?<a class="headerlink" href="#what-is-regular-expressions-regex" title="Permalink to this headline">¶</a></h2>
+<p>Regular Expressions, or RegEx for short, is a way of achieving complex string matching based on simple or complex patterns. It can be used to perform finding and retrieving patterns or replacing matching patterns in a string with some other pattern. It was invnted by an Stephen Cole Kleene in the 1950s and is still widely used today for numerous tasks, but particularly string matching in texts. RegEx are fully integrated with most search engines and can allow for more robust searching. Nearly all data scientists, especially those who work with texts, use RegEx at some stage in their workflow, from data searching, to cleaning data, to implementing machine learning models. It is an essential tool for any text-based researcher. For these reasons, it merits a few chapters in this textbook.</p>
+<p>In spaCy it can be leveraged in a few different pipes (depending on the task at hand as we shall see), to identify things such as entities or pattern matching.</p>
+</div>
+<div class="section" id="the-strengths-of-regex">
+<h2><span class="section-number">6.3. </span>The Strengths of RegEx<a class="headerlink" href="#the-strengths-of-regex" title="Permalink to this headline">¶</a></h2>
+<p>There are several strengths to RegEx.</p>
+<ol class="simple">
+<li><p>Due to its complex syntax, it can allow for programmers to write robust rules in short spaces.<br></p></li>
+<li><p>It can allow the researcher to find all types of variance in strings<br></p></li>
+<li><p>It can perform remarkably quickly when compared to other methods.</p></li>
+<li><p>It is universally supported</p></li>
+</ol>
+</div>
+<div class="section" id="the-weaknesses-of-regex">
+<h2><span class="section-number">6.4. </span>The Weaknesses of RegEx<a class="headerlink" href="#the-weaknesses-of-regex" title="Permalink to this headline">¶</a></h2>
+<p>Despite these strengths, there are a few weaknesses to RegEx.</p>
+<ol class="simple">
+<li><p>Its syntax is quite difficult for beginners. (I still find myself looking up how to do certain things).<br></p></li>
+<li><p>It order to work well, it requires a domain-expert to work alongside the programmer to think of all ways a pattern may vary in texts.<br></p></li>
+</ol>
+</div>
+<div class="section" id="how-to-use-regex-in-python">
+<h2><span class="section-number">6.5. </span>How to Use RegEx in Python<a class="headerlink" href="#how-to-use-regex-in-python" title="Permalink to this headline">¶</a></h2>
+<p>Python comes prepackaged with a RegEx library. We can import it like so:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have it imported, we can begin to write out some RegEx rules. Let’s say we want to find an occurrence of a date in a text. As noted in an earlier notebook, there are a finite number of ways this can be represented. Let’s try to grab all instances of a day followed by a month first.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;((\d){1,2} (January|February|March|April|May|June|July|August|September|October|November|December))&quot;</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a date 2 February. Another date would be 14 August.&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;2 February&#39;, &#39;2&#39;, &#39;February&#39;), (&#39;14 August&#39;, &#39;4&#39;, &#39;August&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this bit of code, we see a real-life RegEx formula at work. While this looks quite complex, its syntax is fairly straight forward. Let’s break it down.
+The first ( tells RegEx that I’m looking for something within the ending ). In other words, I’m looking for a pattern that’s going to match the whole pattern, not just components.</p>
+<p>Next, we state (\d){1,2}. This means that we are looking for any digit (0-9) that occurs either once or twice ({1,2}).</p>
+<p>Next, we have a space to indicate the space in the string that we would expect with a date.</p>
+<p>Next, we have (January|February|March|April|May|June|July|August|September|October|November|December) – this indicates another component of the pattern (because it is parentheses). The | indicates the same concept as “or” in English, so either January, or February, or March, etc.</p>
+<p>When we bring it together, this pattern will match anything that functions as a set of one or two numbers followed by a month. What happens when we try and do this with a date that is formed the opposite way?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a date February 2. Another date would be 14 August.&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;14 August&#39;, &#39;4&#39;, &#39;August&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>It fails. But this is no fault of RegEx. Our pattern cannot accommodate that variation. Nevertheless, we can account for it by adding it as a possible variation. Possible variations are accounted for with a *</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(((\d){1,2}( (January|February|March|April|May|June|July|August|September|October|November|December)))|(((January|February|March|April|May|June|July|August|September|October|November|December) )(\d){1,2}))&quot;</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a date February 2. Another date would be 14 August.&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;February 2&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;, &#39;February 2&#39;, &#39;February &#39;, &#39;February&#39;, &#39;2&#39;), (&#39;14 August&#39;, &#39;14 August&#39;, &#39;4&#39;, &#39; August&#39;, &#39;August&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are more concise ways to write the same RegEx formula. I have opted here to be more verbose to make it a bit easier to read. You can see that we’ve allowed for two main options for our pattern matcher.</p>
+<p>Notice, however, that we have a lot of superfluous information for each match. These are the components of each match. There are several ways we can remove them. One way is to use the command finditer, rather than findall in RegEx.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a date February 2. Another date would be 14 August.&quot;</span>
+<span class="n">iter_matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">iter_matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;callable_iterator object at 0x00000217A415BC10&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is an iterator object, we can loop over it, however, and get our results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a date February 2. Another date would be 14 August.&quot;</span>
+<span class="n">iter_matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">iter_matches</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">iter_matches</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">hit</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;callable_iterator object at 0x00000217A4256670&gt;
+&lt;re.Match object; span=(15, 25), match=&#39;February 2&#39;&gt;
+&lt;re.Match object; span=(49, 58), match=&#39;14 August&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Within each of these is some very salient information, such as the start and end location (inside the span) and the text itself (match). We can use the start and end location to grab the text within the string.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a date February 2. Another date would be 14 August.&quot;</span>
+<span class="n">iter_matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">iter_matches</span><span class="p">:</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>February 2
+14 August
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="how-to-use-regex-in-spacy">
+<h2><span class="section-number">6.6. </span>How to Use RegEx in spaCy<a class="headerlink" href="#how-to-use-regex-in-spacy" title="Permalink to this headline">¶</a></h2>
+<p>Things like dates, times, IP Addresses, etc. that have either consistent or fairly consistent structures are excellent candidates for RegEx. Fortunately, spaCy has easy ways to implement RegEx in three pipes: Matcher, PhraseMatcher, and EntityRuler. One of the major drawbacks to the Matcher and PhraseMatcher, is that they do not align the matches as doc.ents. Because this textbook is about NER and our goal is to store the entities in the doc.ents, we will focus on using RegEx with the EntityRuler. In the next notebook, we will examine other methods.</p>
+<p>In the previous notebook, we saw how the code below allowed for us to capture the phone number in the string. I have modified it a bit here for reasons that will become a bit more clear below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import the requisite library</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="c1">#Sample text</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a sample number 555-5555.&quot;</span>
+
+<span class="c1">#Build upon the spaCy Small Model</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+
+<span class="c1">#Create the Ruler and Add it</span>
+<span class="n">ruler</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;entity_ruler&quot;</span><span class="p">)</span>
+
+<span class="c1">#List of Entities and Patterns (source: https://spacy.io/usage/rule-based-matching)</span>
+<span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;PHONE_NUMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;SHAPE&quot;</span><span class="p">:</span> <span class="s2">&quot;ddd&quot;</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;ORTH&quot;</span><span class="p">:</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;?&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;SHAPE&quot;</span><span class="p">:</span> <span class="s2">&quot;dddd&quot;</span><span class="p">}]}</span>
+            <span class="p">]</span>
+<span class="c1">#add patterns to ruler</span>
+<span class="n">ruler</span><span class="o">.</span><span class="n">add_patterns</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span>
+
+<span class="c1">#create the doc</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="c1">#extract entities</span>
+<span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:tensorflow:Enabling eager execution
+INFO:tensorflow:Enabling v2 tensorshape
+INFO:tensorflow:Enabling resource variables
+INFO:tensorflow:Enabling tensor equality
+INFO:tensorflow:Enabling control flow v2
+555-5555 PHONE_NUMBER
+</pre></div>
+</div>
+</div>
+</div>
+<p>This method worked well for grabbing the phone number. But what if we wanted to use RegEx as opposed to linguistic features, such as shape? First, let’s write some RegEx to capturee 555-5555.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;((\d)</span><span class="si">{3}</span><span class="s2">-(\d)</span><span class="si">{4}</span><span class="s2">)&quot;</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a sample number 555-5555.&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;555-5555&#39;, &#39;5&#39;, &#39;5&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Okay. So, now we know that we have a RegEx pattern that works. Let’s try and implement it in the spaCy EntityRuler. We can do that with the code below. When we execute the code below, we have no output.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import the requisite library</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="c1">#Sample text</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a sample number (555) 555-5555.&quot;</span>
+
+<span class="c1">#Build upon the spaCy Small Model</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+
+<span class="c1">#Create the Ruler and Add it</span>
+<span class="n">ruler</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;entity_ruler&quot;</span><span class="p">)</span>
+
+<span class="c1">#List of Entities and Patterns (source: https://spacy.io/usage/rule-based-matching)</span>
+<span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;PHONE_NUMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;TEXT&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;REGEX&quot;</span><span class="p">:</span> <span class="s2">&quot;((\d)</span><span class="si">{3}</span><span class="s2">-(\d)</span><span class="si">{4}</span><span class="s2">)&quot;</span><span class="p">}}</span>
+                                                        <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+<span class="c1">#add patterns to ruler</span>
+<span class="n">ruler</span><span class="o">.</span><span class="n">add_patterns</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span>
+
+
+<span class="c1">#create the doc</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="c1">#extract entities</span>
+<span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is for one very important reason. SpaCy’s EntityRuler cannot use RegEx to pattern match across tokens. The dash in the phone number throws off the EntityRuler. So, what are we to do in this scenario? Well, we have a few different options that we will explore in the next notebook. But before we get to that, let’s try and use RegEx to capture the phone number with no hyphen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import the requisite library</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+
+<span class="c1">#Sample text</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;This is a sample number 5555555.&quot;</span>
+<span class="c1">#Build upon the spaCy Small Model</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+
+<span class="c1">#Create the Ruler and Add it</span>
+<span class="n">ruler</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;entity_ruler&quot;</span><span class="p">)</span>
+
+<span class="c1">#List of Entities and Patterns (source: https://spacy.io/usage/rule-based-matching)</span>
+<span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;PHONE_NUMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;TEXT&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;REGEX&quot;</span><span class="p">:</span> <span class="s2">&quot;((\d)</span><span class="si">{5}</span><span class="s2">)&quot;</span><span class="p">}}</span>
+                                                        <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+<span class="c1">#add patterns to ruler</span>
+<span class="n">ruler</span><span class="o">.</span><span class="n">add_patterns</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span>
+
+
+<span class="c1">#create the doc</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="c1">#extract entities</span>
+<span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5555555 PHONE_NUMBER
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that without the dash and a few modifications to our RegEx, we were able to capture 5555555 because this is a single token in the spaCy doc object. Let’s explore how to solve the problem in the next notebook!</p>
+</div>
+<div class="section" id="video">
+<h2><span class="section-number">6.7. </span>Video<a class="headerlink" href="#video" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%html</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;560&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;315&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://www.youtube.com/embed/wpyCzodvO3A&quot;</span> <span class="na">frameborder</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">allow</span><span class="o">=</span><span class="s">&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot;</span> <span class="na">allowfullscreen</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wpyCzodvO3A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="02_03_phrase_matcher.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">&lt;no title&gt;</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="02_05_complex_regex.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">7. </span><center>Working with Multi-Word Token Entities and RegEx in spaCy 3</center></p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By William Mattingly<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

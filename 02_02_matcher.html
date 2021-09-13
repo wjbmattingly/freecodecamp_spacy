@@ -51,6 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="02_03_phrase_matcher.html" />
+    <link rel="prev" title="5. Using SpaCy’s EntityRuler" href="02_01_entityruler.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -178,7 +180,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/00_cleaning_text.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/02_02_matcher.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -198,10 +200,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F00_cleaning_text.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F02_02_matcher.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/00_cleaning_text.ipynb"><button
+        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/02_02_matcher.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -221,7 +223,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/00_cleaning_text.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/02_02_matcher.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -254,147 +256,7 @@
         
               <div>
                 
-  <div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s2">&quot;data/alice_unclean.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alice&#39;s Adventures in Wonderland
-
-                ALICE&#39;S ADVENTURES IN WONDERLAND
-
-                          Lewis Carroll
-
-               THE MILLENNIUM FULCRUM EDITION 3.0
-
-
-
-
-                            CHAPTER I
-
-                      Down the Rabbit-Hole
-
-
-  Alice was beginning to get very tired of sitting by her sister
-on the bank, and of having nothing to do:  once or twice she had
-peeped into the book her sister was reading, but it had no
-pictures or conversations in it, `and what is the use of a book,&#39;
-thought Alice `without pictures or conversation?&#39;
-
-  So she was considering in her own mind (as well as she could,
-for the hot day made her feel very sleepy and stupid), whether
-the pleasure of making a daisy-chain would be worth the trouble
-of getting up and picking the daisies, when suddenly a White
-Rabbit with pink eyes ran close by her.
-
-  There was nothing so VERY remarkable in that; nor did Alice
-think it so VERY much out of the way to hear the Rabbit say to
-itself, `Oh d
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chapters</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;CHAPTER&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">chapters</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">1000</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> I
-
-                      Down the Rabbit-Hole
-
-
-  Alice was beginning to get very tired of sitting by her sister
-on the bank, and of having nothing to do:  once or twice she had
-peeped into the book her sister was reading, but it had no
-pictures or conversations in it, `and what is the use of a book,&#39;
-thought Alice `without pictures or conversation?&#39;
-
-  So she was considering in her own mind (as well as she could,
-for the hot day made her feel very sleepy and stupid), whether
-the pleasure of making a daisy-chain would be worth the trouble
-of getting up and picking the daisies, when suddenly a White
-Rabbit with pink eyes ran close by her.
-
-  There was nothing so VERY remarkable in that; nor did Alice
-think it so VERY much out of the way to hear the Rabbit say to
-itself, `Oh dear!  Oh dear!  I shall be late!&#39;  (when she thought
-it over afterwards, it occurred to her that she ought to have
-wondered at this, but at the time it all seemed quite natural);
-but when the Rabbit actually TOOK A
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_text</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">chapter</span> <span class="ow">in</span> <span class="n">chapters</span><span class="p">:</span>
-    <span class="n">chapter</span> <span class="o">=</span> <span class="s2">&quot;CHAPTER&quot;</span><span class="o">+</span><span class="n">chapter</span>
-    <span class="n">chapter</span> <span class="o">=</span> <span class="n">chapter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;*       *       *       *       *       *       *&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">paras</span> <span class="o">=</span> <span class="n">chapter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">chapter_num</span> <span class="o">=</span> <span class="n">paras</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="n">chapter_num</span><span class="p">)</span>
-    <span class="n">chapter_title</span> <span class="o">=</span> <span class="n">paras</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="n">chapter_title</span><span class="p">)</span>
-    <span class="n">chapter_text</span> <span class="o">=</span> <span class="n">paras</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-    <span class="n">final_paragraphs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">para</span> <span class="ow">in</span> <span class="n">chapter_text</span><span class="p">:</span>
-        <span class="n">para</span> <span class="o">=</span> <span class="n">para</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-        <span class="k">while</span> <span class="s2">&quot;  &quot;</span> <span class="ow">in</span> <span class="n">para</span><span class="p">:</span>
-            <span class="n">para</span> <span class="o">=</span> <span class="n">para</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">para</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">final_paragraphs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">para</span><span class="p">)</span>
-    <span class="n">complete_text</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">chapter_num</span><span class="p">,</span> <span class="n">chapter_title</span><span class="p">,</span> <span class="n">final_paragraphs</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CHAPTER I
-Down the Rabbit-Hole
-CHAPTER II
-The Pool of Tears
-CHAPTER III
-A Caucus-Race and a Long Tale
-CHAPTER IV
-The Rabbit Sends in a Little Bill
-CHAPTER V
-Advice from a Caterpillar
-CHAPTER VI
-Pig and Pepper
-CHAPTER VII
-A Mad Tea-Party
-CHAPTER VIII
-The Queen&#39;s Croquet-Ground
-CHAPTER IX
-The Mock Turtle&#39;s Story
-CHAPTER X
-The Lobster Quadrille
-CHAPTER XI
-Who Stole the Tarts?
-CHAPTER XII
-Alice&#39;s Evidence
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
-<span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s2">&quot;data/alice.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">complete_text</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-
+  
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -424,6 +286,24 @@ Alice&#39;s Evidence
 
 <div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="02_01_entityruler.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">5. </span><center>Using SpaCy’s EntityRuler</center></p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="02_03_phrase_matcher.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">&lt;no title&gt;</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         
