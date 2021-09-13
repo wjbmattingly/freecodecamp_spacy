@@ -1,7 +1,6 @@
 format: jb-book
 root: intro
 parts:
-numbered: true
 - caption: The Building Blocks of spaCy 3
   numbered: true
   chapters:
