@@ -25,3 +25,8 @@ parts:
     title: How to use RegEx in spaCy (Basic)
   - file: 02_05_complex_regex
     title: How to use RegEx in spaCy (Advanced)
+- caption: Applied spaCy
+  numbered: true
+  chapters:
+  - file: 03_01_stock_analysis
+    title: Financial Analysis with spaCy 3
