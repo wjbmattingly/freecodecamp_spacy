@@ -1,0 +1,956 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Entity Recognizer &#8212; Introduction to spaCy 3</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/freecodecamp_small.jpg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to spaCy 3</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   <p align="center">
+    INTRODUCTION TO SPACY 3
+   </p>
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  The Building Blocks of spaCy 3
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_01_install_and_containers.html">
+   1. The Basics of spaCy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_02_linguistic_annotations.html">
+   2. spaCy Linguistic Annotations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_03_word_vectors.html">
+   3. Word Vectors and spaCy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_04_pipelines.html">
+   4. spaCy Pipelines
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Rules-Based spaCy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_01_entityruler.html">
+   5. How to use the spaCy EntityRulere
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_02_matcher.html">
+   6. How to use the spaCy Matcher
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_03_phrase_matcher.html">
+   7. How to use the spaCy PhraseMatcher
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_04_simple_regex.html">
+   8. How to use RegEx in spaCy (Basic)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_05_complex_regex.html">
+   9. How to use RegEx in spaCy (Advanced)
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/03_01_stock_analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/wjbmattingly/freecodecamp_spacy"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F03_01_stock_analysis.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/03_01_stock_analysis.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/03_01_stock_analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="center-stock-entity-recognizer-center">
+<h1><center>Stock Entity Recognizer</center><a class="headerlink" href="#center-stock-entity-recognizer-center" title="Permalink to this headline">¶</a></h1>
+<center>Dr. W.J.B. Mattingly</center>
+<center>Smithsonian Data Science Lab and United States Holocaust Memorial Museum</center>
+<center>August 2021</center><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:tensorflow:Enabling eager execution
+INFO:tensorflow:Enabling v2 tensorshape
+INFO:tensorflow:Enabling resource variables
+INFO:tensorflow:Enabling tensor equality
+INFO:tensorflow:Enabling control flow v2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/stocks.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Symbol</th>
+      <th>CompanyName</th>
+      <th>Industry</th>
+      <th>MarketCap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td>Agilent Technologies</td>
+      <td>Life Sciences Tools &amp; Services</td>
+      <td>53.65B</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AA</td>
+      <td>Alcoa</td>
+      <td>Metals &amp; Mining</td>
+      <td>9.25B</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AAC</td>
+      <td>Ares Acquisition</td>
+      <td>Shell Companies</td>
+      <td>1.22B</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AACG</td>
+      <td>ATA Creativity Global</td>
+      <td>Diversified Consumer Services</td>
+      <td>90.35M</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AADI</td>
+      <td>Aadi Bioscience</td>
+      <td>Pharmaceuticals</td>
+      <td>104.85M</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>5874</th>
+      <td>ZWRK</td>
+      <td>Z-Work Acquisition</td>
+      <td>Shell Companies</td>
+      <td>278.88M</td>
+    </tr>
+    <tr>
+      <th>5875</th>
+      <td>ZY</td>
+      <td>Zymergen</td>
+      <td>Chemicals</td>
+      <td>1.31B</td>
+    </tr>
+    <tr>
+      <th>5876</th>
+      <td>ZYME</td>
+      <td>Zymeworks</td>
+      <td>Biotechnology</td>
+      <td>1.50B</td>
+    </tr>
+    <tr>
+      <th>5877</th>
+      <td>ZYNE</td>
+      <td>Zynerba Pharmaceuticals</td>
+      <td>Pharmaceuticals</td>
+      <td>184.39M</td>
+    </tr>
+    <tr>
+      <th>5878</th>
+      <td>ZYXI</td>
+      <td>Zynex</td>
+      <td>Health Care Equipment &amp; Supplies</td>
+      <td>438.33M</td>
+    </tr>
+  </tbody>
+</table>
+<p>5879 rows × 4 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">symbols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Symbol</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">companies</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">CompanyName</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">companies</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A
+Agilent Technologies
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/indexes.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>IndexName</th>
+      <th>IndexSymbol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Dow Jones Industrial Average</td>
+      <td>DJIA</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Dow Jones Transportation Average</td>
+      <td>DJT</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Dow Jones Utility Average Index</td>
+      <td>DJU</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NASDAQ 100 Index (NASDAQ Calculation)</td>
+      <td>NDX</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NASDAQ Composite Index</td>
+      <td>COMP</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>NYSE Composite Index</td>
+      <td>NYA</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>S&amp;P 500 Index</td>
+      <td>SPX</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>S&amp;P 400 Mid Cap Index</td>
+      <td>MID</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>S&amp;P 100 Index</td>
+      <td>OEX</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>NASDAQ Computer Index</td>
+      <td>IXCO</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>PHLX Semiconductor Index</td>
+      <td>SOX</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>PHLX Gold/Silver Index</td>
+      <td>XAU</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>NYSE Arca Oil Index</td>
+      <td>XOI</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Russell 2000 Index</td>
+      <td>RUT</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">indexes</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">IndexName</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">index_symbols</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">IndexSymbol</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/stock_exchanges.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">df3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>BloombergExchangeCode</th>
+      <th>BloombergCompositeCode</th>
+      <th>Country</th>
+      <th>Description</th>
+      <th>ISOMIC</th>
+      <th>Google Prefix</th>
+      <th>EODcode</th>
+      <th>NumStocks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AF</td>
+      <td>AR</td>
+      <td>Argentina</td>
+      <td>Bolsa de Comercio de Buenos Aires</td>
+      <td>XBUE</td>
+      <td>NaN</td>
+      <td>BA</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AO</td>
+      <td>AU</td>
+      <td>Australia</td>
+      <td>National Stock Exchange of Australia</td>
+      <td>XNEC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AT</td>
+      <td>AU</td>
+      <td>Australia</td>
+      <td>Asx - All Markets</td>
+      <td>XASX</td>
+      <td>ASX</td>
+      <td>AU</td>
+      <td>875</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AV</td>
+      <td>NaN</td>
+      <td>Austria</td>
+      <td>Wiener Boerse Ag</td>
+      <td>XWBO</td>
+      <td>VIE</td>
+      <td>VI</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BI</td>
+      <td>NaN</td>
+      <td>Bahrain</td>
+      <td>Bahrain Bourse</td>
+      <td>XBAH</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>UR</td>
+      <td>US</td>
+      <td>USA</td>
+      <td>NASDAQ Capital Market</td>
+      <td>XNCM</td>
+      <td>NASDAQ</td>
+      <td>US</td>
+      <td>2,209</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>UV</td>
+      <td>US</td>
+      <td>USA</td>
+      <td>OTC markets</td>
+      <td>OOTC</td>
+      <td>OTCMKTS</td>
+      <td>US</td>
+      <td>2,433</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>UW</td>
+      <td>US</td>
+      <td>USA</td>
+      <td>NASDAQ Global Select</td>
+      <td>XNGS</td>
+      <td>NASDAQ</td>
+      <td>US</td>
+      <td>1,768</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>VH</td>
+      <td>VN</td>
+      <td>Vietnam</td>
+      <td>Hanoi Stock Exchange</td>
+      <td>HSTC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>101</th>
+      <td>VM</td>
+      <td>VN</td>
+      <td>Vietnam</td>
+      <td>Hochiminh Stock Exchange</td>
+      <td>XSTC</td>
+      <td>NaN</td>
+      <td>VN</td>
+      <td>40</td>
+    </tr>
+  </tbody>
+</table>
+<p>102 rows × 8 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exchanges</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">ISOMIC</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">+</span><span class="n">df3</span><span class="p">[</span><span class="s2">&quot;Google Prefix&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">descriptions</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">Description</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stops</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;two&quot;</span><span class="p">]</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+<span class="n">ruler</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;entity_ruler&quot;</span><span class="p">)</span>
+<span class="n">patterns</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">letters</span> <span class="o">=</span> <span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>
+<span class="c1">#List of Entities and Patterns</span>
+<span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+    <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;STOCK&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="n">symbol</span><span class="p">})</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">letters</span><span class="p">:</span>
+        <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;STOCK&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="n">symbol</span><span class="o">+</span><span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
+                
+    
+    
+<span class="k">for</span> <span class="n">company</span> <span class="ow">in</span> <span class="n">companies</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">company</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stops</span><span class="p">:</span>
+        <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;COMPANY&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="n">company</span><span class="p">})</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="n">company</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;COMPANY&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="n">new</span><span class="p">})</span>
+    
+<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indexes</span><span class="p">:</span>
+    <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;INDEX&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="n">index</span><span class="p">})</span>
+    <span class="n">versions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">caps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+        <span class="n">caps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="n">versions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">caps</span><span class="p">))</span>
+    <span class="n">versions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">versions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">caps</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">versions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">caps</span><span class="p">[:</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="n">versions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">[:</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="o">!=</span> <span class="s2">&quot;NYSE&quot;</span><span class="p">:</span>
+            <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;INDEX&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="n">version</span><span class="p">})</span>
+    
+<span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">index_symbols</span><span class="p">:</span>
+    <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;INDEX&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="n">symbol</span><span class="p">})</span>    
+    
+    
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">descriptions</span><span class="p">:</span>
+    <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;STOCK_EXCHANGE&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="n">d</span><span class="p">})</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">exchanges</span><span class="p">:</span>
+    <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;STOCK_EXCHANGE&quot;</span><span class="p">,</span> <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="n">e</span><span class="p">})</span>
+    
+
+<span class="n">ruler</span><span class="o">.</span><span class="n">add_patterns</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span>
+
+
+
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">patterns</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>169694
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#source: https://www.reuters.com/business/futures-rise-after-biden-xi-call-oil-bounce-2021-09-10/</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">Sept 10 (Reuters) - Wall Street&#39;s main indexes were subdued on Friday as signs of higher inflation and a drop in Apple shares following an unfavorable court ruling offset expectations of an easing in U.S.-China tensions.</span>
+
+<span class="s1">Data earlier in the day showed U.S. producer prices rose solidly in August, leading to the biggest annual gain in nearly 11 years and indicating that high inflation was likely to persist as the pandemic pressures supply chains. read more .</span>
+
+<span class="s1">&quot;Today&#39;s data on wholesale prices should be eye-opening for the Federal Reserve, as inflation pressures still don&#39;t appear to be easing and will likely continue to be felt by the consumer in the coming months,&quot; said Charlie Ripley, senior investment strategist for Allianz Investment Management.</span>
+
+<span class="s1">Apple Inc (AAPL.O) fell 2.7</span><span class="si">% f</span><span class="s1">ollowing a U.S. court ruling in &quot;Fortnite&quot; creator Epic Games&#39; antitrust lawsuit that stroke down some of the iPhone maker&#39;s restrictions on how developers can collect payments in apps.</span>
+
+
+<span class="s1">Sponsored by Advertising Partner</span>
+<span class="s1">Sponsored Video</span>
+<span class="s1">Watch to learn more</span>
+<span class="s1">Report ad</span>
+<span class="s1">Apple shares were set for their worst single-day fall since May this year, weighing on the Nasdaq (.IXIC) and the S&amp;P 500 technology sub-index (.SPLRCT), which fell 0.1%.</span>
+
+<span class="s1">Sentiment also took a hit from Cleveland Federal Reserve Bank President Loretta Mester&#39;s comments that she would still like the central bank to begin tapering asset purchases this year despite the weak August jobs report. read more</span>
+
+<span class="s1">Investors have paid keen attention to the labor market and data hinting towards higher inflation recently for hints on a timeline for the Federal Reserve to begin tapering its massive bond-buying program.</span>
+
+<span class="s1">The S&amp;P 500 has risen around 19</span><span class="si">% s</span><span class="s1">o far this year on support from dovish central bank policies and re-opening optimism, but concerns over rising coronavirus infections and accelerating inflation have lately stalled its advance.</span>
+
+
+<span class="s1">Report ad</span>
+<span class="s1">The three main U.S. indexes got some support on Friday from news of a phone call between U.S. President Joe Biden and Chinese leader Xi Jinping that was taken as a positive sign which could bring a thaw in ties between the world&#39;s two most important trading partners.</span>
+
+<span class="s1">At 1:01 p.m. ET, the Dow Jones Industrial Average (.DJI) was up 12.24 points, or 0.04%, at 34,891.62, the S&amp;P 500 (.SPX) was up 2.83 points, or 0.06%, at 4,496.11, and the Nasdaq Composite (.IXIC) was up 12.85 points, or 0.08%, at 15,261.11.</span>
+
+<span class="s1">Six of the eleven S&amp;P 500 sub-indexes gained, with energy (.SPNY), materials (.SPLRCM) and consumer discretionary stocks (.SPLRCD) rising the most.</span>
+
+<span class="s1">U.S.-listed Chinese e-commerce companies Alibaba and JD.com , music streaming company Tencent Music (TME.N) and electric car maker Nio Inc (NIO.N) all gained between 0.7</span><span class="si">% a</span><span class="s1">nd 1.4%</span>
+
+
+<span class="s1">Report ad</span>
+<span class="s1">Grocer Kroger Co (KR.N) dropped 7.1</span><span class="si">% a</span><span class="s1">fter it said global supply chain disruptions, freight costs, discounts and wastage would hit its profit margins.</span>
+
+<span class="s1">Advancing issues outnumbered decliners by a 1.12-to-1 ratio on the NYSE and by a 1.02-to-1 ratio on the Nasdaq.</span>
+
+<span class="s1">The S&amp;P index recorded 14 new 52-week highs and three new lows, while the Nasdaq recorded 49 new highs and 38 new lows.</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Apple COMPANY
+Apple COMPANY
+AAPL.O STOCK
+Apple COMPANY
+Nasdaq COMPANY
+S&amp;P 500 INDEX
+S&amp;P 500 INDEX
+ET STOCK
+Dow Jones Industrial Average INDEX
+S&amp;P 500 INDEX
+Nasdaq Composite INDEX
+S&amp;P 500 INDEX
+JD.com COMPANY
+Tencent Music COMPANY
+TME.N STOCK
+NIO.N STOCK
+Kroger COMPANY
+KR.N STOCK
+NYSE STOCK_EXCHANGE
+Nasdaq INDEX
+S&amp;P INDEX
+Nasdaq INDEX
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#source: https://www.reuters.com/companies/AAPL.O</span>
+<span class="n">text2</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">Apple Inc. designs, manufactures and markets smartphones, personal computers, tablets, wearables and accessories, and sells a variety of related services. The Company’s products include iPhone, Mac, iPad, and Wearables, Home and Accessories. iPhone is the Company’s line of smartphones based on its iOS operating system. Mac is the Company’s line of personal computers based on its macOS operating system. iPad is the Company’s line of multi-purpose tablets based on its iPadOS operating system. Wearables, Home and Accessories includes AirPods, Apple TV, Apple Watch, Beats products, HomePod, iPod touch and other Apple-branded and third-party accessories. AirPods are the Company’s wireless headphones that interact with Siri. Apple Watch is the Company’s line of smart watches. Its services include Advertising, AppleCare, Cloud Services, Digital Content and Payment Services. Its customers are primarily in the consumer, small and mid-sized business, education, enterprise and government markets.</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doc2</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc2</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Apple STOCK
+Apple STOCK
+TV STOCK
+Apple STOCK
+Apple STOCK
+Apple STOCK
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By William Mattingly<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
