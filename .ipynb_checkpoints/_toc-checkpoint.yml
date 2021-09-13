@@ -4,11 +4,22 @@ parts:
 - caption: The Building Blocks of spaCy 3
   numbered: true
   chapters:
-  - file: 01_install_and_containers
+  - file: 01_01_install_and_containers
     title: The Basics of spaCy
-  - file: 02_linguistic_annotations
+  - file: 01_02_linguistic_annotations
     title: spaCy Linguistic Annotations
-  - file: 03_word_vectors
+  - file: 01_03_word_vectors
     title: Word Vectors and spaCy
-  - file: 04_pipelines
+  - file: 01_04_pipelines
+    title: spaCy Pipelines
+- caption: Rules-Based spaCy
+  numbered: true
+  chapters:
+  - file: 02_01_entityruler
+    title: How to use the spaCy EntityRulere
+  - file: 02_02_matcher
+    title: How to use the spaCy Matcher
+  - file: 02_03_phrase_matcher
+    title: How to use the spaCy PhraseMatcher
+  - file: 01_04_pipelines
     title: spaCy Pipelines
