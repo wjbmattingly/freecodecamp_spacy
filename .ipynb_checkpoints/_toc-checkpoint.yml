@@ -21,7 +21,14 @@ parts:
     title: How to use the spaCy Matcher
   - file: 02_03_phrase_matcher
     title: How to use the spaCy PhraseMatcher
-  - file: 02_04_simple_regex
+  - file: 02_04_custom_component
+    title: Custom Components in spaCy
+  - file: 02_05_simple_regex
     title: How to use RegEx in spaCy (Basic)
-  - file: 02_05_complex_regex
+  - file: 02_06_complex_regex
     title: How to use RegEx in spaCy (Advanced)
+- caption: Applied spaCy
+  numbered: true
+  chapters:
+  - file: 03_01_stock_analysis
+    title: Financial Analysis with spaCy 3
