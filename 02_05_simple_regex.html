@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>9. Using RegEx with spaCy &#8212; Introduction to spaCy 3</title>
+    <title>8. Using RegEx with spaCy &#8212; Introduction to spaCy 3</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="10. Working with Multi-Word Token Entities and RegEx in spaCy 3" href="02_06_complex_regex.html" />
-    <link rel="prev" title="8. Custom Components in spaCy" href="02_04_custom_component.html" />
+    <link rel="next" title="9. Working with Multi-Word Token Entities and RegEx in spaCy 3" href="02_06_complex_regex.html" />
+    <link rel="prev" title="7. Custom Components in spaCy" href="02_04_custom_component.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -135,23 +135,18 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="02_03_phrase_matcher.html">
-   7. How to use the spaCy PhraseMatcher
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="02_04_custom_component.html">
-   8. Custom Components in spaCy
+   7. Custom Components in spaCy
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   9. How to use RegEx in spaCy (Basic)
+   8. How to use RegEx in spaCy (Basic)
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_06_complex_regex.html">
-   10. How to use RegEx in spaCy (Advanced)
+   9. How to use RegEx in spaCy (Advanced)
   </a>
  </li>
 </ul>
@@ -163,7 +158,7 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="03_01_stock_analysis.html">
-   11. Financial Analysis with spaCy 3
+   10. Financial Analysis with spaCy 3
   </a>
  </li>
 </ul>
@@ -274,37 +269,37 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#key-concepts-in-this-notebook">
-   9.1. Key Concepts in this Notebook
+   8.1. Key Concepts in this Notebook
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#what-is-regular-expressions-regex">
-   9.2. What is Regular Expressions (RegEx)?
+   8.2. What is Regular Expressions (RegEx)?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-strengths-of-regex">
-   9.3. The Strengths of RegEx
+   8.3. The Strengths of RegEx
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-weaknesses-of-regex">
-   9.4. The Weaknesses of RegEx
+   8.4. The Weaknesses of RegEx
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#how-to-use-regex-in-python">
-   9.5. How to Use RegEx in Python
+   8.5. How to Use RegEx in Python
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#how-to-use-regex-in-spacy">
-   9.6. How to Use RegEx in spaCy
+   8.6. How to Use RegEx in spaCy
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#video">
-   9.7. Video
+   8.7. Video
   </a>
  </li>
 </ul>
@@ -319,11 +314,11 @@
               <div>
                 
   <div class="section" id="center-using-regex-with-spacy-center">
-<h1><span class="section-number">9. </span><center>Using RegEx with spaCy</center><a class="headerlink" href="#center-using-regex-with-spacy-center" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">8. </span><center>Using RegEx with spaCy</center><a class="headerlink" href="#center-using-regex-with-spacy-center" title="Permalink to this headline">¶</a></h1>
 <center>Dr. W.J.B. Mattingly</center>
 <center>Smithsonian Data Science Lab and United States Holocaust Memorial Museum</center>
 <center>January 2021</center><div class="section" id="key-concepts-in-this-notebook">
-<h2><span class="section-number">9.1. </span>Key Concepts in this Notebook<a class="headerlink" href="#key-concepts-in-this-notebook" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.1. </span>Key Concepts in this Notebook<a class="headerlink" href="#key-concepts-in-this-notebook" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p>What is RegEx (Regular Expressions)?<br></p></li>
 <li><p>The Strengths of RegEx<br></p></li>
@@ -333,12 +328,12 @@
 </ol>
 </div>
 <div class="section" id="what-is-regular-expressions-regex">
-<h2><span class="section-number">9.2. </span>What is Regular Expressions (RegEx)?<a class="headerlink" href="#what-is-regular-expressions-regex" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.2. </span>What is Regular Expressions (RegEx)?<a class="headerlink" href="#what-is-regular-expressions-regex" title="Permalink to this headline">¶</a></h2>
 <p>Regular Expressions, or RegEx for short, is a way of achieving complex string matching based on simple or complex patterns. It can be used to perform finding and retrieving patterns or replacing matching patterns in a string with some other pattern. It was invnted by an Stephen Cole Kleene in the 1950s and is still widely used today for numerous tasks, but particularly string matching in texts. RegEx are fully integrated with most search engines and can allow for more robust searching. Nearly all data scientists, especially those who work with texts, use RegEx at some stage in their workflow, from data searching, to cleaning data, to implementing machine learning models. It is an essential tool for any text-based researcher. For these reasons, it merits a few chapters in this textbook.</p>
 <p>In spaCy it can be leveraged in a few different pipes (depending on the task at hand as we shall see), to identify things such as entities or pattern matching.</p>
 </div>
 <div class="section" id="the-strengths-of-regex">
-<h2><span class="section-number">9.3. </span>The Strengths of RegEx<a class="headerlink" href="#the-strengths-of-regex" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.3. </span>The Strengths of RegEx<a class="headerlink" href="#the-strengths-of-regex" title="Permalink to this headline">¶</a></h2>
 <p>There are several strengths to RegEx.</p>
 <ol class="simple">
 <li><p>Due to its complex syntax, it can allow for programmers to write robust rules in short spaces.<br></p></li>
@@ -348,7 +343,7 @@
 </ol>
 </div>
 <div class="section" id="the-weaknesses-of-regex">
-<h2><span class="section-number">9.4. </span>The Weaknesses of RegEx<a class="headerlink" href="#the-weaknesses-of-regex" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.4. </span>The Weaknesses of RegEx<a class="headerlink" href="#the-weaknesses-of-regex" title="Permalink to this headline">¶</a></h2>
 <p>Despite these strengths, there are a few weaknesses to RegEx.</p>
 <ol class="simple">
 <li><p>Its syntax is quite difficult for beginners. (I still find myself looking up how to do certain things).<br></p></li>
@@ -356,7 +351,7 @@
 </ol>
 </div>
 <div class="section" id="how-to-use-regex-in-python">
-<h2><span class="section-number">9.5. </span>How to Use RegEx in Python<a class="headerlink" href="#how-to-use-regex-in-python" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.5. </span>How to Use RegEx in Python<a class="headerlink" href="#how-to-use-regex-in-python" title="Permalink to this headline">¶</a></h2>
 <p>Python comes prepackaged with a RegEx library. We can import it like so:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -475,7 +470,7 @@ The first ( tells RegEx that I’m looking for something within the ending ). In
 </div>
 </div>
 <div class="section" id="how-to-use-regex-in-spacy">
-<h2><span class="section-number">9.6. </span>How to Use RegEx in spaCy<a class="headerlink" href="#how-to-use-regex-in-spacy" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.6. </span>How to Use RegEx in spaCy<a class="headerlink" href="#how-to-use-regex-in-spacy" title="Permalink to this headline">¶</a></h2>
 <p>Things like dates, times, IP Addresses, etc. that have either consistent or fairly consistent structures are excellent candidates for RegEx. Fortunately, spaCy has easy ways to implement RegEx in three pipes: Matcher, PhraseMatcher, and EntityRuler. One of the major drawbacks to the Matcher and PhraseMatcher, is that they do not align the matches as doc.ents. Because this textbook is about NER and our goal is to store the entities in the doc.ents, we will focus on using RegEx with the EntityRuler. In the next notebook, we will examine other methods.</p>
 <p>In the previous notebook, we saw how the code below allowed for us to capture the phone number in the string. I have modified it a bit here for reasons that will become a bit more clear below.</p>
 <div class="cell docutils container">
@@ -615,7 +610,7 @@ INFO:tensorflow:Enabling control flow v2
 <p>Notice that without the dash and a few modifications to our RegEx, we were able to capture 5555555 because this is a single token in the spaCy doc object. Let’s explore how to solve the problem in the next notebook!</p>
 </div>
 <div class="section" id="video">
-<h2><span class="section-number">9.7. </span>Video<a class="headerlink" href="#video" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.7. </span>Video<a class="headerlink" href="#video" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%html</span>
@@ -668,7 +663,7 @@ INFO:tensorflow:Enabling control flow v2
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">8. </span>Custom Components in spaCy</p>
+                <p class="prevnext-title"><span class="section-number">7. </span>Custom Components in spaCy</p>
             </div>
         </a>
     </div>
@@ -676,7 +671,7 @@ INFO:tensorflow:Enabling control flow v2
         <a class="right-next" href="02_06_complex_regex.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">10. </span><center>Working with Multi-Word Token Entities and RegEx in spaCy 3</center></p>
+                <p class="prevnext-title"><span class="section-number">9. </span><center>Working with Multi-Word Token Entities and RegEx in spaCy 3</center></p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

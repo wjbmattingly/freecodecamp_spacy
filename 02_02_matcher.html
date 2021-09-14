@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="7. How to use the spaCy PhraseMatcher" href="02_03_phrase_matcher.html" />
+    <link rel="next" title="7. Custom Components in spaCy" href="02_04_custom_component.html" />
     <link rel="prev" title="5. Using SpaCy’s EntityRuler" href="02_01_entityruler.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -135,23 +135,18 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="02_03_phrase_matcher.html">
-   7. How to use the spaCy PhraseMatcher
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="02_04_custom_component.html">
-   8. Custom Components in spaCy
+   7. Custom Components in spaCy
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_05_simple_regex.html">
-   9. How to use RegEx in spaCy (Basic)
+   8. How to use RegEx in spaCy (Basic)
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_06_complex_regex.html">
-   10. How to use RegEx in spaCy (Advanced)
+   9. How to use RegEx in spaCy (Advanced)
   </a>
  </li>
 </ul>
@@ -163,7 +158,7 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="03_01_stock_analysis.html">
-   11. Financial Analysis with spaCy 3
+   10. Financial Analysis with spaCy 3
   </a>
  </li>
 </ul>
@@ -282,6 +277,60 @@
    6.2. Attributes Taken by Matcher
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applied-matcher">
+   6.3. Applied Matcher
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#grabbing-all-proper-nouns">
+   6.4. Grabbing all Proper Nouns
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#improving-it-with-multi-word-tokens">
+     6.4.1. Improving it with Multi-Word Tokens
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#greedy-keyword-argument">
+     6.4.2. Greedy Keyword Argument
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sorting-it-to-apperance">
+     6.4.3. Sorting it to Apperance
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adding-in-sequences">
+     6.4.4. Adding in Sequences
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-quotes-and-speakers">
+   6.5. Finding Quotes and Speakers
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#find-speaker">
+     6.5.1. Find Speaker
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-with-this-approach">
+     6.5.2. Problem with this Approach
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adding-more-patterns">
+     6.5.3. Adding More Patterns
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -383,6 +432,357 @@
 <li><p>OP</p></li>
 </ul>
 </div>
+<div class="section" id="applied-matcher">
+<h2><span class="section-number">6.3. </span>Applied Matcher<a class="headerlink" href="#applied-matcher" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s2">&quot;data/wiki_mlk.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>print (text)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="grabbing-all-proper-nouns">
+<h2><span class="section-number">6.4. </span>Grabbing all Proper Nouns<a class="headerlink" href="#grabbing-all-proper-nouns" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">}]</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;PROPER_NOUNS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">])</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">doc</span><span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>102
+(3232560085755078826, 0, 1) Martin
+(3232560085755078826, 1, 2) Luther
+(3232560085755078826, 2, 3) King
+(3232560085755078826, 3, 4) Jr.
+(3232560085755078826, 6, 7) Michael
+(3232560085755078826, 7, 8) King
+(3232560085755078826, 8, 9) Jr.
+(3232560085755078826, 10, 11) January
+(3232560085755078826, 14, 15) â€
+(3232560085755078826, 16, 17) April
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="improving-it-with-multi-word-tokens">
+<h3><span class="section-number">6.4.1. </span>Improving it with Multi-Word Tokens<a class="headerlink" href="#improving-it-with-multi-word-tokens" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">}]</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;PROPER_NOUNS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">])</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">doc</span><span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>175
+(3232560085755078826, 0, 1) Martin
+(3232560085755078826, 0, 2) Martin Luther
+(3232560085755078826, 1, 2) Luther
+(3232560085755078826, 0, 3) Martin Luther King
+(3232560085755078826, 1, 3) Luther King
+(3232560085755078826, 2, 3) King
+(3232560085755078826, 0, 4) Martin Luther King Jr.
+(3232560085755078826, 1, 4) Luther King Jr.
+(3232560085755078826, 2, 4) King Jr.
+(3232560085755078826, 3, 4) Jr.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="greedy-keyword-argument">
+<h3><span class="section-number">6.4.2. </span>Greedy Keyword Argument<a class="headerlink" href="#greedy-keyword-argument" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">}]</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;PROPER_NOUNS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">],</span> <span class="n">greedy</span><span class="o">=</span><span class="s1">&#39;LONGEST&#39;</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">doc</span><span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>61
+(3232560085755078826, 84, 89) Martin Luther King Sr.
+(3232560085755078826, 470, 475) Martin Luther King Jr. Day
+(3232560085755078826, 537, 542) Martin Luther King Jr. Memorial
+(3232560085755078826, 0, 4) Martin Luther King Jr.
+(3232560085755078826, 129, 133) Southern Christian Leadership Conference
+(3232560085755078826, 248, 252) Director J. Edgar Hoover
+(3232560085755078826, 6, 9) Michael King Jr.
+(3232560085755078826, 326, 329) Nobel Peace Prize
+(3232560085755078826, 423, 426) James Earl Ray
+(3232560085755078826, 464, 467) Congressional Gold Medal
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="sorting-it-to-apperance">
+<h3><span class="section-number">6.4.3. </span>Sorting it to Apperance<a class="headerlink" href="#sorting-it-to-apperance" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">}]</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;PROPER_NOUNS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">],</span> <span class="n">greedy</span><span class="o">=</span><span class="s1">&#39;LONGEST&#39;</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="n">matches</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">doc</span><span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>61
+(3232560085755078826, 0, 4) Martin Luther King Jr.
+(3232560085755078826, 6, 9) Michael King Jr.
+(3232560085755078826, 10, 11) January
+(3232560085755078826, 14, 15) â€
+(3232560085755078826, 16, 17) April
+(3232560085755078826, 24, 25) Baptist
+(3232560085755078826, 50, 51) King
+(3232560085755078826, 70, 72) Mahatma Gandhi
+(3232560085755078826, 84, 89) Martin Luther King Sr.
+(3232560085755078826, 90, 91) King
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="adding-in-sequences">
+<h3><span class="section-number">6.4.4. </span>Adding in Sequences<a class="headerlink" href="#adding-in-sequences" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;VERB&quot;</span><span class="p">}]</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;PROPER_NOUNS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">],</span> <span class="n">greedy</span><span class="o">=</span><span class="s1">&#39;LONGEST&#39;</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="n">matches</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">doc</span><span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+(3232560085755078826, 50, 52) King advanced
+(3232560085755078826, 90, 92) King participated
+(3232560085755078826, 114, 116) King led
+(3232560085755078826, 168, 170) King helped
+(3232560085755078826, 248, 253) Director J. Edgar Hoover considered
+(3232560085755078826, 323, 325) King won
+(3232560085755078826, 486, 489) United States beginning
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="finding-quotes-and-speakers">
+<h2><span class="section-number">6.5. </span>Finding Quotes and Speakers<a class="headerlink" href="#finding-quotes-and-speakers" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s2">&quot;data/alice.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, `and what is the use of a book,&#39; thought Alice `without pictures or conversation?&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span> <span class="s2">&quot;`&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, &#39;and what is the use of a book,&#39; thought Alice &#39;without pictures or conversation?&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_ALPHA&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">}]</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;PROPER_NOUNS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">],</span> <span class="n">greedy</span><span class="o">=</span><span class="s1">&#39;LONGEST&#39;</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="n">matches</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">doc</span><span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+(3232560085755078826, 47, 58) &#39;and what is the use of a book,&#39;
+(3232560085755078826, 60, 67) &#39;without pictures or conversation?&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="find-speaker">
+<h3><span class="section-number">6.5.1. </span>Find Speaker<a class="headerlink" href="#find-speaker" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">speak_lemmas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;think&quot;</span><span class="p">,</span> <span class="s2">&quot;say&quot;</span><span class="p">]</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span> <span class="s2">&quot;`&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
+<span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+<span class="n">pattern1</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_ALPHA&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;VERB&quot;</span><span class="p">,</span> <span class="s2">&quot;LEMMA&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;IN&quot;</span><span class="p">:</span> <span class="n">speak_lemmas</span><span class="p">}},</span> <span class="p">{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_ALPHA&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">}]</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;PROPER_NOUNS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern1</span><span class="p">],</span> <span class="n">greedy</span><span class="o">=</span><span class="s1">&#39;LONGEST&#39;</span><span class="p">)</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="n">matches</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">doc</span><span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+(3232560085755078826, 47, 67) &#39;and what is the use of a book,&#39; thought Alice &#39;without pictures or conversation?&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="problem-with-this-approach">
+<h3><span class="section-number">6.5.2. </span>Problem with this Approach<a class="headerlink" href="#problem-with-this-approach" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;`&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="n">matches</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">doc</span><span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+(3232560085755078826, 47, 67) &#39;and what is the use of a book,&#39; thought Alice &#39;without pictures or conversation?&#39;
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="adding-more-patterns">
+<h3><span class="section-number">6.5.3. </span>Adding More Patterns<a class="headerlink" href="#adding-more-patterns" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">speak_lemmas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;think&quot;</span><span class="p">,</span> <span class="s2">&quot;say&quot;</span><span class="p">]</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span> <span class="s2">&quot;`&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
+<span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+<span class="n">pattern1</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_ALPHA&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;VERB&quot;</span><span class="p">,</span> <span class="s2">&quot;LEMMA&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;IN&quot;</span><span class="p">:</span> <span class="n">speak_lemmas</span><span class="p">}},</span> <span class="p">{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_ALPHA&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">}]</span>
+<span class="n">pattern2</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_ALPHA&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;VERB&quot;</span><span class="p">,</span> <span class="s2">&quot;LEMMA&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;IN&quot;</span><span class="p">:</span> <span class="n">speak_lemmas</span><span class="p">}},</span> <span class="p">{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">}]</span>
+<span class="n">pattern3</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},{</span><span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="s2">&quot;VERB&quot;</span><span class="p">,</span> <span class="s2">&quot;LEMMA&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;IN&quot;</span><span class="p">:</span> <span class="n">speak_lemmas</span><span class="p">}},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_ALPHA&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;IS_PUNCT&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;OP&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ORTH&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">}]</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;PROPER_NOUNS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern1</span><span class="p">,</span> <span class="n">pattern2</span><span class="p">,</span> <span class="n">pattern3</span><span class="p">],</span> <span class="n">greedy</span><span class="o">=</span><span class="s1">&#39;LONGEST&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;`&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">)</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="n">matches</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">doc</span><span class="p">[</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+(3232560085755078826, 47, 67) &#39;and what is the use of a book,&#39; thought Alice &#39;without pictures or conversation?&#39;
+0
+0
+0
+0
+0
+1
+(3232560085755078826, 0, 6) &#39;Well!&#39; thought Alice
+0
+0
+0
+0
+0
+0
+0
+1
+(3232560085755078826, 57, 68) &#39;which certainly was not here before,&#39; said Alice
+0
+0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -424,10 +824,10 @@
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="02_03_phrase_matcher.html" title="next page">
+        <a class="right-next" href="02_04_custom_component.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">7. </span><center>How to use the spaCy PhraseMatcher</center></p>
+                <p class="prevnext-title"><span class="section-number">7. </span>Custom Components in spaCy</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
