@@ -262,6 +262,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-example">
+   6.1. Basic Example
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -280,15 +293,82 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:tensorflow:Enabling eager execution
-INFO:tensorflow:Enabling v2 tensorshape
-INFO:tensorflow:Enabling resource variables
-INFO:tensorflow:Enabling tensor equality
-INFO:tensorflow:Enabling control flow v2
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spacy.matcher</span> <span class="kn">import</span> <span class="n">Matcher</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="basic-example">
+<h2><span class="section-number">6.1. </span>Basic Example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+<span class="n">matcher</span> <span class="o">=</span> <span class="n">Matcher</span><span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;LIKE_EMAIL&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]</span>
+<span class="n">matcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;EMAIL_ADDRESS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">pattern</span><span class="p">])</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;This is an email address: wmattingly@aol.com&quot;</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(16571425990740197027, 6, 7)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lexeme, start token, end token</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">[</span><span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EMAIL_ADDRESS
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>ORTH - The exact verbatim of a token (str)</p></li>
+<li><p>TEXT - The exact verbatim of a token (str)</p></li>
+<li><p>LOWER - The lowercase form of the token text (str)</p></li>
+<li><p>LENGTH - The length of the token text (int)</p></li>
+<li><p>IS_ALPHA</p></li>
+<li><p>IS_ASCII</p></li>
+<li><p>IS_DIGIT</p></li>
+<li><p>IS_LOWER</p></li>
+<li><p>IS_UPPER</p></li>
+<li><p>IS_TITLE</p></li>
+<li><p>IS_PUNCT</p></li>
+<li><p>IS_SPACE</p></li>
+<li><p>IS_STOP</p></li>
+<li><p>IS_SENT_START</p></li>
+<li><p>LIKE_NUM</p></li>
+<li><p>LIKE_URL</p></li>
+<li><p>LIKE_EMAIL</p></li>
+<li><p>SPACY</p></li>
+<li><p>POS</p></li>
+<li><p>TAG</p></li>
+<li><p>MORPH</p></li>
+<li><p>DEP</p></li>
+<li><p>LEMMA</p></li>
+<li><p>SHAPE</p></li>
+<li><p>ENT_TYPE</p></li>
+<li><p>_ - Custom extension attributes (Dict[str, Any])</p></li>
+<li><p>OP</p></li>
+</ul>
 </div>
 </div>
 
