@@ -16,7 +16,7 @@ parts:
   numbered: true
   chapters:
   - file: 02_01_entityruler
-    title: How to use the spaCy EntityRulere
+    title: How to use the spaCy EntityRuler
   - file: 02_02_matcher
     title: How to use the spaCy Matcher
   - file: 02_03_phrase_matcher
