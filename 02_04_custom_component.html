@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>&lt;no title&gt; &#8212; Introduction to spaCy 3</title>
+    <title>8. Custom Components in spaCy &#8212; Introduction to spaCy 3</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="9. Financial Analysis" href="03_01_stock_analysis.html" />
+    <link rel="prev" title="7. How to use the spaCy PhraseMatcher" href="02_03_phrase_matcher.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -121,7 +123,7 @@
   Rules-Based spaCy
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="02_01_entityruler.html">
    5. How to use the spaCy EntityRulere
@@ -137,8 +139,8 @@
    7. How to use the spaCy PhraseMatcher
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02_04_custom_component.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    8. Custom Components in spaCy
   </a>
  </li>
@@ -195,9 +197,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/README.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/02_04_custom_component.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -215,10 +217,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2FREADME.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/wjbmattingly/freecodecamp_spacy/issues/new?title=Issue%20on%20page%20%2F02_04_custom_component.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/README.md"><button
+        <a class="edit-button" href="https://github.com/wjbmattingly/freecodecamp_spacy/edit/main/02_04_custom_component.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -233,19 +235,28 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/wjbmattingly/freecodecamp_spacy/main?urlpath=tree/02_04_custom_component.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -254,7 +265,29 @@
         
               <div>
                 
-  
+  <div class="section" id="custom-components-in-spacy">
+<h1><span class="section-number">8. </span>Custom Components in spaCy<a class="headerlink" href="#custom-components-in-spacy" title="Permalink to this headline">¶</a></h1>
+<center>Dr. W.J.B. Mattingly</center>
+<center>Smithsonian Data Science Lab and United States Holocaust Memorial Museum</center>
+<center>August 2021</center><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:tensorflow:Enabling eager execution
+INFO:tensorflow:Enabling v2 tensorshape
+INFO:tensorflow:Enabling resource variables
+INFO:tensorflow:Enabling tensor equality
+INFO:tensorflow:Enabling control flow v2
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -284,6 +317,24 @@
 
 <div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="02_03_phrase_matcher.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">7. </span><center>How to use the spaCy PhraseMatcher</center></p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="03_01_stock_analysis.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">9. </span><center>Financial Analysis</center></p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         
